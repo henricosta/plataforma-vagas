@@ -17,11 +17,13 @@ class VagaFactory extends Factory
      */
     public function definition(): array
     {
+        $num_empresas = Empresa::all()->count();
+
         return [
             'titulo' => fake()->text(255),
             'descricao' => fake()->text(3000),
             'num_vagas' => fake()->numberBetween(1, 50),
-            'empresa_id' => Empresa::factory()->create()->getKey(),
+            'empresa_id' => fake()->numberBetween(1, $num_empresas),
             'modalidade' => strval(fake()->numberBetween(1, 3))
         ];
     }
