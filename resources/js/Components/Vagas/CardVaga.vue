@@ -1,7 +1,9 @@
 <script setup>
+import {computed} from "vue";
+
 defineProps({
     titulo: String,
-    empresa: Object,
+    nome_empresa: String,
     descricao: String
 })
 
@@ -11,14 +13,13 @@ function truncate(str, maximum_length) {
     }
     return str
 }
-
 </script>
 
 <template>
     <a href="#" class="block max-w-lg p-8 border shadow h-full">
-        <h5 class="mb-2 text-2xl">{{ truncate(titulo, 60) }}</h5>
-        <p class="mb-2 text-gray-500">{{ truncate(empresa.nome, 50) }}</p>
-        <p class="text-sm" id="card-text">{{ truncate(descricao, 120) }}</p>
+        <h5 class="mb-2 text-2xl">{{ truncate(titulo, 50) }}</h5>
+        <p class="mb-2 text-gray-500">{{ truncate(nome_empresa, 30) }}</p>
+        <p class="text-sm" id="card-text">{{ truncate(descricao, 130) }}</p>
     </a>
 </template>
 
