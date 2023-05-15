@@ -17,7 +17,14 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Home');
+    $vagas = \App\Models\Vaga::query()
+        ->leftJoin('empresas', 'vagas.empresa_id', '=', 'empresas.id')
+        ->select('vagas.*', 'empresas.nome as nome_empresa')
+        ->take(10)
+        ->get();
+    return Inertia::render('Home', [
+        'vagas' => $vagas
+    ]);
 });
 
 Route::middleware('auth')->group(function () {
