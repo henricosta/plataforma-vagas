@@ -3,14 +3,17 @@
 import CardVaga from "@/Components/Vagas/CardVaga.vue";
 
 defineProps({
-    vagas: Object
+    vagas: Object,
+    updateVagaFocus: Function
 })
 
 </script>
 
 <template>
-    <div v-for="vaga in vagas">
-        <CardVaga :titulo="vaga.titulo" :nome_empresa="vaga.nome_empresa" :descricao="vaga.descricao"/>
+    <div>
+        <div v-for="(vaga, index) in vagas" :key="index">
+            <CardVaga :titulo="vaga.titulo" :nome_empresa="vaga.nome_empresa" :descricao="vaga.descricao" @click="updateVagaFocus(index)"/>
+        </div>
     </div>
 </template>
 
