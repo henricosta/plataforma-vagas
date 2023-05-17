@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,19 @@ Route::get('/', function () {
         ->get();
     return Inertia::render('Home', [
         'vagas' => $vagas
+    ]);
+});
+
+Route::get('/vagas/busca', function(Request $request) {
+    $titulo = $request->input('titulo');
+    $vagas = \App\Models\Vaga::query()
+        ->leftJoin('empresas', 'vagas.empresa_id', '=', 'empresas.id')
+        ->select('vagas.*', 'empresas.nome as nome_empresa')
+        ->where('vagas.titulo', 'like', "%{$titulo}%")
+        ->take(10)
+        ->get();
+    return Inertia::render('Home', [
+        'vagas' => $vagas,
     ]);
 });
 
