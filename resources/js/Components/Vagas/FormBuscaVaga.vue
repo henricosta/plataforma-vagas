@@ -13,7 +13,7 @@ function submit() {
 }
 
 </script>
-<!-- TODO: Remover a borda do input quando em foco-->
+<!-- TODO: Enviar filtros junto com o input -->
 <template>
     <form @submit.prevent="submit">
         <div class="flex justify-center">
