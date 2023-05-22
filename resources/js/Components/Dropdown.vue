@@ -17,7 +17,5 @@ defineProps<{
 </template>
 
 <style scoped>
-.dropdown-content-item {
-    padding: 1rem;
-}
+
 </style>
