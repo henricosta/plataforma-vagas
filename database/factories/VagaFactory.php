@@ -24,6 +24,7 @@ class VagaFactory extends Factory
             'descricao' => fake()->text(3000),
             'num_vagas' => fake()->numberBetween(1, 50),
             'empresa_id' => fake()->numberBetween(1, $num_empresas),
+            'cidade_id' => fake()->numberBetween(1, 5570),
             'modalidade' => strval(fake()->numberBetween(1, 3))
         ];
     }
