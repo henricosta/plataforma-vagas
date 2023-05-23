@@ -1,5 +1,5 @@
 <script setup>
-
+import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
@@ -14,8 +14,8 @@
                     <button class="px-2">Para empresas</button>
                 </div>
                 <div>
-                    <a href="/login"><button class="mr-5">Login</button></a>
-                    <a href="/register"><button class="border px-4 py-2 rounded hover:text-blue-700 hover:bg-gray-50 transition-colors">Register</button></a>
+                    <Link href="/login"><button class="mr-5">Login</button></Link>
+                    <Link href="/register"><button class="border px-4 py-2 rounded hover:text-blue-700 hover:bg-gray-50 transition-colors">Register</button></Link>
                 </div>
             </div>
         </nav>
