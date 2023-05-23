@@ -11,7 +11,8 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["resources/js/*"]
-        }
+        },
+        "allowJs": true
     },
     "include": [
         "./resources/js/**/*"
