@@ -6,7 +6,6 @@ use App\Models\Vaga;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
-// TODO: Mover lógica para os models
 class VagaController extends Controller
 {
     public function __construct(protected Vaga $vagas) {}
