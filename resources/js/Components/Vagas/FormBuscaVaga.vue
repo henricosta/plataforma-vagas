@@ -45,7 +45,7 @@ function updateModalidade(value) {
     <form @submit.prevent="submit" id="formulario-busca-vaga">
         <div class="flex justify-center">
             <div class="py-8 flex">
-                <input type="text" id="input-field" class="pl-6 placeholder-gray-400 bg-indigo-50 rounded-l-2xl border-blue-700 text-lg focus:border-transparent border-1" placeholder="Ex: Desenvolvedor Web" v-model="form.search">
+                <input type="text" id="input-field" class="pl-6 placeholder-gray-400 bg-indigo-50 rounded-l-2xl border-blue-700 text-lg focus:border-transparent border-1" placeholder="Ex: Desenvolvedor Web" v-model="form.busca">
                 <button type="submit" class="bg-blue-600 text-gray-50 px-4 py-4 rounded-r-2xl">Buscar vaga</button>
             </div>
         </div>
