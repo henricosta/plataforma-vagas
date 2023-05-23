@@ -14,8 +14,8 @@
                     <button class="px-2">Para empresas</button>
                 </div>
                 <div>
-                    <button class="mr-5">Login</button>
-                    <button class="border px-4 py-2 rounded hover:text-blue-700 hover:bg-gray-50 transition-colors">Register</button>
+                    <a href="/login"><button class="mr-5">Login</button></a>
+                    <a href="/register"><button class="border px-4 py-2 rounded hover:text-blue-700 hover:bg-gray-50 transition-colors">Register</button></a>
                 </div>
             </div>
         </nav>
