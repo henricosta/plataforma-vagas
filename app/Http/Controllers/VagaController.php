@@ -3,10 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vaga;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class VagaController extends Controller
 {
+    public function busca(Request $request) {
+        $busca = $request->input('busca');
+        $modalidade = $request->input('modalidade');
+
+        $vagas = Vaga::modalidade($modalidade)
+            ->leftJoin('empresas', 'vagas.empresa_id', '=', 'empresas.id')
+            ->select('vagas.*', 'empresas.nome as nome_empresa')
+            ->where('vagas.titulo', 'like', "%{$busca}%")
+            ->take(10)
+            ->get();
+
+        return Inertia::render('Home', [
+            'vagas' => $vagas,
+        ]);
+    }
     /**
      * Display a listing of the resource.
      */
