@@ -36,6 +36,7 @@ function submit() {
 
 function updateModalidade(value) {
     form.modalidade = value
+    router.get('/vagas/busca', form)
 }
 
 </script>
