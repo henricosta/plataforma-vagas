@@ -42,7 +42,6 @@ function updateModalidade(value) {
 </script>
 <!-- TODO: Enviar filtros junto com o input -->
 <template>
-    <h1>{{form.modalidade}}</h1>
     <form @submit.prevent="submit" id="formulario-busca-vaga">
         <div class="flex justify-center">
             <div class="py-8 flex">
