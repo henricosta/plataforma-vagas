@@ -18,16 +18,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    $vagas = \App\Models\Vaga::query()
-        ->leftJoin('empresas', 'vagas.empresa_id', '=', 'empresas.id')
-        ->select('vagas.*', 'empresas.nome as nome_empresa')
-        ->take(15)
-        ->get();
-    return Inertia::render('Home', [
-        'vagas' => $vagas
-    ]);
-});
+Route::get('/', [VagaController::class, 'index']);
 
 Route::get('/vagas/busca', [VagaController::class, 'busca']);
 

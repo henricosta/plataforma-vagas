@@ -28,7 +28,14 @@ class VagaController extends Controller
      */
     public function index()
     {
-        //
+        $vagas = Vaga::query()
+            ->leftJoin('empresas', 'vagas.empresa_id', '=', 'empresas.id')
+            ->selsect('vagas.*', 'empresas.nome as nome_empresa')
+            ->take(15)
+            ->get();
+        return Inertia::render('Home', [
+            'vagas' => $vagas
+        ]);
     }
 
     /**
