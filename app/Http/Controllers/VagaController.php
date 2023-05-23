@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 
 class VagaController extends Controller
 {
+    public function __construct(protected Vaga $vagas) {}
+
     public function busca(Request $request) {
         $busca = $request->input('busca');
         $modalidade = $request->input('modalidade');
 
-        $vagas = Vaga::modalidade($modalidade)
+        $vagas = $this->vagas->modalidade($modalidade)
             ->leftJoin('empresas', 'vagas.empresa_id', '=', 'empresas.id')
             ->select('vagas.*', 'empresas.nome as nome_empresa')
             ->where('vagas.titulo', 'like', "%{$busca}%")
@@ -28,9 +30,9 @@ class VagaController extends Controller
      */
     public function index()
     {
-        $vagas = Vaga::query()
+        $vagas = $this->vagas->query()
             ->leftJoin('empresas', 'vagas.empresa_id', '=', 'empresas.id')
-            ->selsect('vagas.*', 'empresas.nome as nome_empresa')
+            ->select('vagas.*', 'empresas.nome as nome_empresa')
             ->take(15)
             ->get();
         return Inertia::render('Home', [
