@@ -8,7 +8,7 @@
             <div class="flex flex-wrap justify-between text-cyan-50">
                 <div class="flex">
                     <div class="self-center mr-10 ml-3">
-                        <button>Home</button>
+                        <a href="/">Home</a>
                     </div>
                     <button class="px-2 border-b-2">Buscar vagas</button>
                     <button class="px-2">Para empresas</button>
