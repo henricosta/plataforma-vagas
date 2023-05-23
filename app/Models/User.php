@@ -42,9 +42,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function scopeFilter(Builder $query, int $modalidade = null) {
-        if ($modalidade) {
-            $query->where('modalidade', '=', strval($modalidade));
-        }
-    }
 }
