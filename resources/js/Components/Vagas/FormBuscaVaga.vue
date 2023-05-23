@@ -2,7 +2,7 @@
 
 import {router} from "@inertiajs/vue3";
 import {reactive} from "vue";
-import Dropdown from "@/Components/Dropdown.vue";
+import SelectInput from "../SelectInput.vue";
 
 const placeholder = [
     {
@@ -49,7 +49,7 @@ function updateModalidade(value) {
             </div>
         </div>
         <div class="border-b-2 border-t-2 py-4">
-            <Dropdown @change="updateModalidade" :selected="form.modalidade" v-for="item in placeholder" :filter="item.filter" :text="item.text" :options="item.options"/>
+            <SelectInput @change="updateModalidade" :selected="form.modalidade" v-for="item in placeholder" :filter="item.filter" :text="item.text" :options="item.options"/>
         </div>
     </form>
 </template>
