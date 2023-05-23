@@ -1,5 +1,7 @@
 <script setup>
 
+// BUG: Quando uma vaga é selecionada a barra de rolagem volta para o topos
+
 import ListVagas from "@/Components/Vagas/ListVagas.vue";
 import PageVaga from "@/Components/Vagas/PageVaga.vue";
 import {onBeforeUnmount, onMounted, reactive, ref} from "vue";
