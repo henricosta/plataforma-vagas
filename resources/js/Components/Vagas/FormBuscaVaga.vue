@@ -40,7 +40,6 @@ function updateModalidade(value) {
 }
 
 </script>
-<!-- TODO: Enviar filtros junto com o input -->
 <template>
     <form @submit.prevent="submit" id="formulario-busca-vaga">
         <div class="flex justify-center">
