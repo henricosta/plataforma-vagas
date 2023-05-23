@@ -6,6 +6,7 @@ use App\Models\Vaga;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
+// TODO: Mover lógica para os models
 class VagaController extends Controller
 {
     public function __construct(protected Vaga $vagas) {}
@@ -14,12 +15,7 @@ class VagaController extends Controller
         $busca = $request->input('busca');
         $modalidade = $request->input('modalidade');
 
-        $vagas = $this->vagas->modalidade($modalidade)
-            ->leftJoin('empresas', 'vagas.empresa_id', '=', 'empresas.id')
-            ->select('vagas.*', 'empresas.nome as nome_empresa')
-            ->where('vagas.titulo', 'like', "%{$busca}%")
-            ->take(10)
-            ->get();
+        $vagas = $this->vagas->busca($busca, $modalidade);
 
         return Inertia::render('Home', [
             'vagas' => $vagas,
@@ -30,11 +26,8 @@ class VagaController extends Controller
      */
     public function index()
     {
-        $vagas = $this->vagas->query()
-            ->leftJoin('empresas', 'vagas.empresa_id', '=', 'empresas.id')
-            ->select('vagas.*', 'empresas.nome as nome_empresa')
-            ->take(15)
-            ->get();
+        $vagas = $this->vagas->listRecente();
+        
         return Inertia::render('Home', [
             'vagas' => $vagas
         ]);
