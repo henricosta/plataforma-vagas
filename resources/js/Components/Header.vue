@@ -1,5 +1,10 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
+
+defineProps({
+    isLogged: false
+})
+
 </script>
 
 <template>
@@ -10,12 +15,17 @@ import { Link } from '@inertiajs/vue3';
                     <div class="self-center mr-10 ml-3">
                         <a href="/">Home</a>
                     </div>
-                    <button class="px-2 border-b-2">Buscar vagas</button>
-                    <button class="px-2">Para empresas</button>
+                    <div class="self-center">
+                        <button class="px-2">Buscar vagas</button>
+                        <button class="px-2">Para empresas</button>
+                    </div>
                 </div>
-                <div>
+                <div v-if="!isLogged">
                     <Link href="/login"><button class="mr-5">Login</button></Link>
                     <Link href="/register"><button class="border px-4 py-2 rounded hover:text-blue-700 hover:bg-gray-50 transition-colors">Register</button></Link>
+                </div>
+                <div v-else>
+                    <Link href="/profile"><button class="border px-4 py-2 rounded hover:text-blue-700 hover:bg-gray-50 transition-colors">Perfil</button></Link>
                 </div>
             </div>
         </nav>
