@@ -33,8 +33,7 @@ function handleScrolling() {
 </script>
 
 <template>
-<!--    Todo: procurar uma forma de fazer com que a vaga selecionada na lista seja a que apareca na página -->
-<!--    Todo: Adicionar página de "nenhuma vaga encontrada"-->
+<!--    TODO: Adicionar página de "nenhuma vaga encontrada"-->
     <div class="flex justify-center">
         <ListVagas :vagas="vagas" :update-vaga-focus="updateVagaOnFocus"/>
         <div class="w-2/4">
