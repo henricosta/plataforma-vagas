@@ -43,4 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function competencias() {
+        return $this->belongsToMany(Competencia::class, 'user_competencia', 'user_id', 'competencia_id');
+    }
 }
