@@ -18,7 +18,8 @@ class ProfileController extends Controller
      */
     public function show(Request $request): Response {
         return Inertia::render('Profile/ProfilePage', [
-            'status' => session('status')
+            'status' => session('status'),
+            'user' => Auth::user()
         ]);
     }
 

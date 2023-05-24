@@ -1,12 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 
-defineProps({
-    status: {
-        type: String,
-    },
-});
+interface User {
+    id: number,
+    nome_completo: string,
+    email: string,
+    telefone?: string
+}
+
+defineProps<{
+    status: string,
+    user: User
+}>()
+
 </script>
 
 <template>
@@ -24,10 +31,10 @@ defineProps({
                         <span class="font-medium text-gray-600 dark:text-gray-300">JL</span>
                     </div>
                     <div>
-                        <div class="mb-3 text-4xl font-extrabold dark:text-white" >Nome completo</div>
+                        <div class="mb-3 text-4xl font-extrabold dark:text-white" >{{user.nome_completo}}</div>
                         <ul class="max-w-md space-y-1 text-gray-500 list-none list-inside dark:text-gray-400">
-                            <li>Email: asodfisdf@gmail.com</li>
-                            <li>Telefone: (85)8567-4535</li>
+                            <li>Email: {{user.email}}</li>
+                            <li v-if="user.telefone" >Telefone: {{user.telefone}}</li>
                         </ul>
                     </div>
                 </div>
