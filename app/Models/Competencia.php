@@ -9,6 +9,12 @@ class Competencia extends Model
 {
     use HasFactory;
 
+    public static function insertCompetencia(String $competencia) {
+        return Competencia::firstOrCreate([
+            'competencia' => strtolower($competencia)
+        ]);
+    }
+
     public function users() {
         return $this->belongsToMany(User::class, 'user_competencia', 'competencia_id', 'user_id');
     }

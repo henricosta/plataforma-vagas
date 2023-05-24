@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Competencia;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,7 +18,18 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
+    public function __construct(protected User $user){}
+
     public function show(Request $request): Response {
+        return Inertia::render('Profile/ProfilePage', [
+            'status' => session('status'),
+            'user' => Auth::user()
+        ]);
+    }
+
+    public function addCompetencia(Request $request) {
+        $competencia = $request->input('competencia');
+        $this->user->addCompetencia($competencia);
         return Inertia::render('Profile/ProfilePage', [
             'status' => session('status'),
             'user' => Auth::user()
