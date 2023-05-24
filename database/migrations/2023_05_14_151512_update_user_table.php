@@ -14,9 +14,6 @@ return new class extends Migration
         Schema::table('users', function(Blueprint $table) {
             $table->renameColumn('name', 'nome_completo');
         });
-        Schema::table('users', function(Blueprint $table) {
-            $table->date('data_nascimento');
-        });
     }
 
     /**
@@ -26,10 +23,6 @@ return new class extends Migration
     {
         Schema::table('users', function(Blueprint $table) {
             $table->renameColumn('nome_completo', 'name');
-        });
-
-        Schema::table('users', function(Blueprint $table) {
-            $table->dropColumn('data_nascimento');
         });
     }
 };
