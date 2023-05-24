@@ -6,12 +6,13 @@ import LayoutVagas from "@/Layouts/LayoutVagas.vue";
 
 defineProps({
     vagas: Object,
+    isLogged: Boolean
 })
 
 </script>
 
 <template>
-    <Header />
+    <Header :isLogged="isLogged"/>
     <FormBuscaVaga />
     <LayoutVagas :vagas="vagas"/>
 </template>

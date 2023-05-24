@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vaga;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,8 @@ class VagaController extends Controller
         $vagas = $this->vagas->listRecente();
         
         return Inertia::render('Home', [
-            'vagas' => $vagas
+            'vagas' => $vagas,
+            'isLogged' => Auth::check()
         ]);
     }
 
