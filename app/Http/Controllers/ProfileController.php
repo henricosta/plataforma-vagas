@@ -21,9 +21,10 @@ class ProfileController extends Controller
     public function __construct(protected User $user){}
 
     public function show(Request $request): Response {
+        $user = $this->user->getUserWithCompetencias(Auth::user()->id);
         return Inertia::render('Profile/ProfilePage', [
             'status' => session('status'),
-            'user' => Auth::user()
+            'user' => $user
         ]);
     }
 
