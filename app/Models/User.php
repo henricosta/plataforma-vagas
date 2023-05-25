@@ -43,6 +43,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getUserWithCompetencias($userId) {
+        $user = $this->user::with('competencias:competencia')->find($userId)->toArray();
+        return $user;
+    }
+
     public function addCompetencia(String $competencia, $userId) {
         $comp = Competencia::firstOrCreate([
             'competencia' => strtolower($competencia)
