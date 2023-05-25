@@ -51,13 +51,10 @@ class User extends Authenticatable
         $this->attachUniqueCompetencias($comp->id, $userId);
     }
 
-    public function attachUniqueCompetencias($competencia_id, $user_id) {
-        $attachedIds = $this->competencias()->whereIn('competencias.id', [
-            'competencia_id' => $competencia_id,
-            'user_id' => $user_id
-        ])->pluck('competencias.id');
-
-        $this->competencias()->attach($attachedIds->diff([$competencia_id, $user_id]));
+    private function attachUniqueCompetencias($competencia_id, $user_id) {
+        $user = User::find($user_id);
+        // TODO: syncWithoutDetaching() é muito lenta
+        $user->competencias()->syncWithoutDetaching([$competencia_id]);
     }
 
     public function competencias() {
