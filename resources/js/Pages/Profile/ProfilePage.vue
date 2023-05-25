@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
 import {reactive, ref} from "vue";
+import route from 'ziggy-js'
 
 // TODO: Criar componente para modal
 // BUG: Competencia request param is null
@@ -35,6 +36,7 @@ function openModal() {
 function closeModal(){
     isModalOpen.value = false
 }
+
 function closeModalOutside(event) {
     if (event.target == document.getElementById('modal-adicionar-competencia')) {
         closeModal()

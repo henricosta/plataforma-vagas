@@ -12,7 +12,8 @@
         "paths": {
             "@/*": ["resources/js/*"]
         },
-        "allowJs": true
+        "allowJs": true,
+        "noImplicitAny": false
     },
     "include": [
         "./resources/js/**/*"
