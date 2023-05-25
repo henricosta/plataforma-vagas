@@ -1,5 +1,5 @@
 <?php
-
+// TODO: Desacoplar user das competências
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -43,8 +43,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function addCompetencia(String $competencia) {
-        Competencia::insertCompetencia($competencia);
+    public function addCompetencia(String $competencia, $userId) {
+        $comp = Competencia::firstOrCreate([
+            'competencia' => strtolower($competencia)
+        ]);
+
+        $this->attachUniqueCompetencias($comp->id, $userId);
+    }
+
+    public function attachUniqueCompetencias($competencia_id, $user_id) {
+        $attachedIds = $this->competencias()->whereIn('competencias.id', [
+            'competencia_id' => $competencia_id,
+            'user_id' => $user_id
+        ])->pluck('competencias.id');
+
+        $this->competencias()->attach($attachedIds->diff([$competencia_id, $user_id]));
     }
 
     public function competencias() {
