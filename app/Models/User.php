@@ -44,7 +44,7 @@ class User extends Authenticatable
     ];
 
     public function getUserWithCompetencias($userId) {
-        $user = User::with('competencias:competencia')->find($userId)->toArray();
+        $user = User::with('competencias:competencia')->find($userId);
         return $user;
     }
 
