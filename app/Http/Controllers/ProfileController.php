@@ -28,7 +28,8 @@ class ProfileController extends Controller
     }
 
     public function addCompetencia(Request $request) {
-        $competencia = $request->input('competencia');
+        $competencia = $request;
+        dd($competencia);
         $this->user->addCompetencia($competencia);
         return Inertia::render('Profile/ProfilePage', [
             'status' => session('status'),

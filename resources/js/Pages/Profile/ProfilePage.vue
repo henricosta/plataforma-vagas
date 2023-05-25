@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import {Head, useForm} from '@inertiajs/vue3';
 import {reactive, ref} from "vue";
 
 // TODO: Criar componente para modal
-
+// BUG: Competencia request param is null
 interface User {
     id: number,
     nome_completo: string,
@@ -19,9 +19,13 @@ defineProps<{
 }>()
 
 //TODO: Add modal
-const competenciaForm = reactive({
-    novaCompetencia: ''
+const competenciaForm = useForm({
+    competencia: ''
 })
+
+const submitCompetencia = () => {
+    competenciaForm.post(route('competencia.create'));
+};
 
 const isModalOpen = ref(false)
 
@@ -77,15 +81,15 @@ function closeModalOutside(event) {
             </div>
         </div>
     </AuthenticatedLayout>
-    <div v-show="isModalOpen" @click="closeModal">
+    <div v-show="isModalOpen" @click="closeModalOutside">
         <div id="modal-adicionar-competencia" class="flex justify-center items-center fixed z-10 left-0 top-0 w-full h-full bg-gray-900 bg-opacity-50">
             <div id="modal-adicionar-competencia-content" class="bg-white w-96 inline-block align-middle rounded-2xl shadow-2xl">
-                <form class="p-4">
+                <form class="p-4" @submit.prevent="submitCompetencia">
                     <div class="flex justify-end">
                         <button @click="closeModal" class="block text-red-600">Fechar</button>
                     </div>
                     <label for="competencia-input" class="text-gray-500">Nova Competência</label>
-                    <input id="competencia-input" type="text" class="w-full border rounded-lg" placeholder="Ex: Excel" :value="competenciaForm.novaCompetencia">
+                    <input id="competencia-input" type="text" class="w-full border rounded-lg" placeholder="Ex: Excel" :value="competenciaForm.competencia">
                     <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Adicionar competência
                     </button>
