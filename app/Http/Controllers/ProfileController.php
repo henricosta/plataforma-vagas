@@ -24,7 +24,11 @@ class ProfileController extends Controller
         $user = $this->user->getUserWithCompetencias(Auth::user()->id);
         return Inertia::render('Profile/ProfilePage', [
             'status' => session('status'),
-            'user' => $user
+            'id' => $user['id'],
+            'nome_completo' => $user['nome_completo'],
+            'email' => $user['email'],
+            'telefone' => $user['telefone'],
+            'competencias' => $user['competencias']
         ]);
     }
 
