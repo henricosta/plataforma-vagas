@@ -5,7 +5,6 @@ import {reactive, ref} from "vue";
 import route from 'ziggy-js'
 
 // TODO: Criar componente para modal
-// BUG: Competencia request param is null
 interface User {
     id: number,
     nome_completo: string,
@@ -90,7 +89,7 @@ function closeModalOutside(event) {
                         <button @click="closeModal" class="block text-red-600">Fechar</button>
                     </div>
                     <label for="competencia-input" class="text-gray-500">Nova Competência</label>
-                    <input id="competencia-input" type="text" class="w-full border rounded-lg" placeholder="Ex: Excel" :value="competenciaForm.competencia">
+                    <input id="competencia-input" type="text" class="w-full border rounded-lg" placeholder="Ex: Excel" v-model="competenciaForm.competencia">
                     <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Adicionar competência
                     </button>
