@@ -9,6 +9,12 @@ class Competencia extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
+    protected $fillable = [
+        'competencia'
+    ];
+
     public static function insertCompetencia(String $competencia) {
         return Competencia::firstOrCreate([
             'competencia' => strtolower($competencia)
