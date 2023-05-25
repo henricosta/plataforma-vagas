@@ -18,7 +18,6 @@ defineProps<{
     user: User,
 }>()
 
-//TODO: Add modal
 const competenciaForm = useForm({
     competencia: ''
 })
