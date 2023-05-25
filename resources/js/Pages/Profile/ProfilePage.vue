@@ -1,22 +1,17 @@
-<script setup lang="ts">
+<script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
 import {reactive, ref} from "vue";
 import route from 'ziggy-js'
 
 // TODO: Criar componente para modal
-interface User {
-    id: number,
-    nome_completo: string,
-    email: string,
-    telefone?: string,
-    competencias?: string[]
-}
-
-defineProps<{
-    status: string,
-    user: User,
-}>()
+defineProps({
+    id: Number,
+    nome_completo: String,
+    email: String,
+    telefone: String,
+    competencias: Array
+})
 
 const competenciaForm = useForm({
     competencia: ''
@@ -59,10 +54,10 @@ function closeModalOutside(event) {
                         <span class="font-medium text-gray-600 dark:text-gray-300">JL</span>
                     </div>
                     <div>
-                        <div class="mb-3 text-4xl font-extrabold dark:text-white" >{{user.nome_completo}}</div>
+                        <div class="mb-3 text-4xl font-extrabold dark:text-white" >{{nome_completo}}</div>
                         <ul class="max-w-md space-y-1 text-gray-500 list-none list-inside dark:text-gray-400">
-                            <li>Email: {{user.email}}</li>
-                            <li v-if="user.telefone" >Telefone: {{user.telefone}}</li>
+                            <li>Email: {{email}}</li>
+                            <li v-if="telefone" >Telefone: {{telefone}}</li>
                         </ul>
                     </div>
                 </div>
@@ -72,8 +67,8 @@ function closeModalOutside(event) {
                         <button @click="openModal" id="adicionar-competencia" type="button" class="ml-3 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Adicionar competência</button>
                     </div>
                     <div>
-                        <ul v-if="user.competencias?.length" class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
-                            <li v-for="competencia in user.competencias">{{competencia}}</li>
+                        <ul v-if="competencias.length > 0" class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                            <li v-for="competencia in competencias" style="text-transform: capitalize">{{competencia.competencia}}</li>
                         </ul>
                         <div v-else class="text-gray-500">Você ainda não adicionou nenhuma competência</div>
                     </div>
