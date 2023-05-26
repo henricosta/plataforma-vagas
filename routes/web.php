@@ -6,7 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\EmpresaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +21,15 @@ use Illuminate\Http\Request;
 Route::get('/', [VagaController::class, 'index']);
 
 Route::get('/vagas/busca', [VagaController::class, 'busca']);
+
+Route::prefix('empresa/')->group(function() {
+   Route::get('register', function() {
+       return Inertia::render('Auth/RegisterEmpresa');
+   });
+   Route::get('login', function() {
+       return Inertia::render('Auth/LoginEmpresa');
+   });
+});
 
 Route::middleware('auth')->group(function () {
     Route::post('/profile/competencia', [ProfileController::class, 'addCompetencia'])->name('competencia.create');
