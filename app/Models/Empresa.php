@@ -15,6 +15,14 @@ class Empresa extends Authenticatable
     protected $fillable = ['nome', 'password'];
     protected $hidden = ['password', 'remember_token'];
 
+    public function createEmpresa($nome, $password) {
+        $empresa = Empresa::create([
+            'nome' => $nome,
+            'password' => $password
+        ]);
+
+        return $empresa;
+    }
 
     public function vagas(): HasMany {
         return $this->hasMany(Vaga::class);
