@@ -22,7 +22,10 @@ Route::get('/', [VagaController::class, 'index']);
 
 Route::get('/vagas/busca', [VagaController::class, 'busca']);
 
-Route::prefix('empresa')->group(function() {
+Route::group([
+    'prefix' => 'empresa',
+    'middleware' => 'guest'
+], function() {
     Route::get('login', [EmpresaController::class, 'showLogin'])->name('empresa.login');
     Route::post('login', [EmpresaController::class, 'login'])->name('empresa.login');
     Route::get('register', [EmpresaController::class, 'showRegister'])->name('empresa.register');
@@ -30,7 +33,19 @@ Route::prefix('empresa')->group(function() {
     Route::post('logout', [EmpresaController::class, 'logout'])->name('empresa.logout');
 });
 
-Route::middleware('auth')->group(function () {
+Route::group([
+    'prefix' => 'empresa',
+    'middleware' => ['auth', 'empresa']
+], function() {
+    Route::get('profile', [EmpresaController::class, 'showProfile'])->name('empresa.profile');
+    Route::get('profile/vaga', [EmpresaController::class, 'showVaga'])->name('empresa.vaga');
+    Route::post('profile/vaga', [EmpresaController::class, 'createVaga'])->name('empresa.create.vaga');
+    Route::put('profile/vaga', [EmpresaController::class, 'editVaga'])->name('empresa.edit.vaga');
+});
+// TODO: separar auths de user e empresa
+// TODO: Criar rotas para o profile da empresa
+// TODO: Criar rotas para adicionar vagas
+Route::middleware('auth:web')->group(function () {
     Route::post('/profile/competencia', [ProfileController::class, 'addCompetencia'])->name('competencia.create');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
