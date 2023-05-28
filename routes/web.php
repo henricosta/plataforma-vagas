@@ -24,10 +24,10 @@ Route::get('/vagas/busca', [VagaController::class, 'busca']);
 
 Route::prefix('empresa')->group(function() {
     Route::get('login', [EmpresaController::class, 'showLogin']);
-    Route::post('login', [EmpresaController::class, 'login']);
+    Route::post('login', [EmpresaController::class, 'login'])->name('empresa.login');
     Route::get('register', [EmpresaController::class, 'showRegister']);
-    Route::post('register', [EmpresaController::class, 'register']);
-    Route::post('logout', [EmpresaController::class, 'logout']);
+    Route::post('register', [EmpresaController::class, 'register'])->name('empresa.register');
+    Route::post('logout', [EmpresaController::class, 'logout'])->name('empresa.logout');
 });
 
 Route::middleware('auth')->group(function () {
