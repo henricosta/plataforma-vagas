@@ -42,9 +42,7 @@ Route::group([
     Route::post('profile/vaga', [EmpresaController::class, 'createVaga'])->name('empresa.create.vaga');
     Route::put('profile/vaga', [EmpresaController::class, 'editVaga'])->name('empresa.edit.vaga');
 });
-// TODO: separar auths de user e empresa
-// TODO: Criar rotas para o profile da empresa
-// TODO: Criar rotas para adicionar vagas
+
 Route::middleware('auth:web')->group(function () {
     Route::post('/profile/competencia', [ProfileController::class, 'addCompetencia'])->name('competencia.create');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
