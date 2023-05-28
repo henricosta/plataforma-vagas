@@ -19,7 +19,15 @@ class EmpresaController extends Controller
     }
 
     public function login(Request $req) {
-        dd($req);
+        $credentials = $req->only('email', 'password');
+        if (Auth::guard('empresa')->attempt($credentials)) {
+            $req->session()->regenerate();
+            return redirect()->intended('/');
+        } else {
+            return redirect()->route('empresa.login')->withErrors([
+                'email' => 'Credenciais inválidas'
+            ]);
+        }
     }
 
     public function register(Request $req) {

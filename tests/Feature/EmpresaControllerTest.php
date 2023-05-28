@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmpresaController;
 use App\Models\Empresa;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -38,6 +39,25 @@ class EmpresaControllerTest extends TestCase
 
         $this->assertTrue(Hash::check($password, $empresa->password));
 
+        $this->assertTrue(Auth::guard('empresa')->check());
+        $this->assertEquals($empresa->id, Auth::guard('empresa')->id());
+    }
+
+    public function testLogin()
+    {
+        $password = 'password123';
+        $empresa = Empresa::factory()->create([
+            'password' => Hash::make($password),
+        ]);
+
+        $requestData = [
+            'email' => $empresa->email,
+            'password' => $password,
+        ];
+
+        $response = $this->post(route('empresa.login'), $requestData);
+
+        $response->assertRedirect('/');
         $this->assertTrue(Auth::guard('empresa')->check());
         $this->assertEquals($empresa->id, Auth::guard('empresa')->id());
     }
