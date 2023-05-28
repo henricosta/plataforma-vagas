@@ -63,7 +63,7 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink href="/"> Profile </DropdownLink>
-                                        <DropdownLink href="/" method="post" as="button">
+                                        <DropdownLink href="/logout" method="post" as="button">
                                             Log Out
                                         </DropdownLink>
                                     </template>
