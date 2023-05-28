@@ -22,13 +22,12 @@ Route::get('/', [VagaController::class, 'index']);
 
 Route::get('/vagas/busca', [VagaController::class, 'busca']);
 
-Route::prefix('empresa/')->group(function() {
-   Route::get('register', function() {
-       return Inertia::render('Auth/RegisterEmpresa');
-   });
-   Route::get('login', function() {
-       return Inertia::render('Auth/LoginEmpresa');
-   });
+Route::prefix('empresa')->group(function() {
+    Route::get('login', [EmpresaController::class, 'showLogin']);
+    Route::post('login', [EmpresaController::class, 'login']);
+    Route::get('register', [EmpresaController::class, 'showRegister']);
+    Route::post('register', [EmpresaController::class, 'register']);
+    Route::post('logout', [EmpresaController::class, 'logout']);
 });
 
 Route::middleware('auth')->group(function () {
