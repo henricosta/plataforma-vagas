@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empresa;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +23,7 @@ class EmpresaController extends Controller
         $credentials = $req->only('email', 'password');
         if (Auth::guard('empresa')->attempt($credentials)) {
             $req->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->intended(RouteServiceProvider::HOME);
         } else {
             return redirect()->route('empresa.login')->withErrors([
                 'email' => 'Credenciais inválidas'
@@ -44,7 +45,7 @@ class EmpresaController extends Controller
         ]);
 
         Auth::guard('empresa')->login($empresa);
-    
+
         return redirect()->intended('/');
     }
 
@@ -56,6 +57,22 @@ class EmpresaController extends Controller
         $req->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function showProfile() {
+        return Inertia::render('Profile/ProfileEmpresa');
+    }
+
+    public function showVaga() {
+
+    }
+
+    public function createVaga() {
+
+    }
+
+    public function editVaga() {
+
     }
     /**
      * Display a listing of the resource.
