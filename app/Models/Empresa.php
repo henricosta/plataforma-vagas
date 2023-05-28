@@ -11,8 +11,7 @@ class Empresa extends Authenticatable
 {
     use HasFactory;
 
-    protected $guard = 'empresa';
-    protected $fillable = ['nome', 'password'];
+    protected $fillable = ['nome', 'email', 'password'];
     protected $hidden = ['password', 'remember_token'];
 
     public function createEmpresa($nome, $password) {
