@@ -1,31 +1,44 @@
 <?php
 
-namespace Tests\Feature;
-
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Models\Empresa;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class EmpresaControllerTest extends TestCase
 {
-    use DatabaseTransactions;
-    /**
-     * A basic feature test example.
-     */
-    public function test_create_empresa(): void
+    use RefreshDatabase;
+    use WithFaker;
+
+    public function testRegister()
     {
-        $data = [
-            'nome' => 'Empresa Teste',
-            'password' => 'password'
+        $nome = $this->faker->name;
+        $email = $this->faker->unique()->safeEmail;
+        $password = 'password123';
+
+        $requestData = [
+            'nome' => $nome,
+            'email' => $email,
+            'password' => $password,
+            'password_confirmation' => $password,
         ];
 
-        $response = $this->post('/empresa/register', $data);
+        $response = $this->post(route('empresa.register'), $requestData);
 
-        $response->assertStatus(200);
+        $response->assertRedirect('/');
 
         $this->assertDatabaseHas('empresas', [
-            'nome' => 'Empresa Teste'
+            'nome' => $nome,
+            'email' => $email,
         ]);
+
+        $empresa = Empresa::where('email', $email)->first();
+
+        $this->assertTrue(Hash::check($password, $empresa->password));
+
+        $this->assertTrue(Auth::guard('empresa')->check());
+        $this->assertEquals($empresa->id, Auth::guard('empresa')->id());
     }
 }
