@@ -47,6 +47,16 @@ class EmpresaController extends Controller
     
         return redirect()->intended('/');
     }
+
+    public function logout(Request $req) {
+        Auth::guard('empresa')->logout();
+
+        $req->session()->invalidate();
+
+        $req->session()->regenerateToken();
+
+        return redirect('/');
+    }
     /**
      * Display a listing of the resource.
      */
