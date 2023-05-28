@@ -23,9 +23,9 @@ Route::get('/', [VagaController::class, 'index']);
 Route::get('/vagas/busca', [VagaController::class, 'busca']);
 
 Route::prefix('empresa')->group(function() {
-    Route::get('login', [EmpresaController::class, 'showLogin']);
+    Route::get('login', [EmpresaController::class, 'showLogin'])->name('empresa.login');
     Route::post('login', [EmpresaController::class, 'login'])->name('empresa.login');
-    Route::get('register', [EmpresaController::class, 'showRegister']);
+    Route::get('register', [EmpresaController::class, 'showRegister'])->name('empresa.register');
     Route::post('register', [EmpresaController::class, 'register'])->name('empresa.register');
     Route::post('logout', [EmpresaController::class, 'logout'])->name('empresa.logout');
 });
