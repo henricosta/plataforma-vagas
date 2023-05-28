@@ -35,7 +35,7 @@ Route::group([
 
 Route::group([
     'prefix' => 'empresa',
-    'middleware' => ['auth', 'empresa']
+    'middleware' => ['auth:empresa']
 ], function() {
     Route::get('profile', [EmpresaController::class, 'showProfile'])->name('empresa.profile');
     Route::get('profile/vaga', [EmpresaController::class, 'showVaga'])->name('empresa.vaga');
