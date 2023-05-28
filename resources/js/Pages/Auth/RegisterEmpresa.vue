@@ -7,14 +7,14 @@ import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-    nome_completo: '',
+    nome: '',
     email: '',
     password: '',
     password_confirmation: '',
 });
 
 const submit = () => {
-    form.post(route('register'), {
+    form.post(route('empresa.register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
@@ -32,13 +32,13 @@ const submit = () => {
                     id="nome_completo"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.nome_completo"
+                    v-model="form.nome"
                     required
                     autofocus
                     autocomplete="nome_completo"
                 />
 
-                <InputError class="mt-2" :message="form.errors.nome_completo" />
+                <InputError class="mt-2" :message="form.errors.nome" />
             </div>
 
             <div class="mt-4">
@@ -88,7 +88,7 @@ const submit = () => {
 
             <div class="flex items-center justify-end mt-4">
                 <Link
-                    :href="route('login')"
+                    :href="route('empresa.login')"
                     class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Already registered?

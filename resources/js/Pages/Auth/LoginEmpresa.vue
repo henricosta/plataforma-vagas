@@ -23,7 +23,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('login'), {
+    form.post(route('empresa.login'), {
         onFinish: () => form.reset('password'),
     });
 };
@@ -85,7 +85,7 @@ const submit = () => {
                     Forgot your password?
                 </Link>
                 <PrimaryButton class="ml-4 bg-amber-50 border-2 border-black text-black" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    <a href="/register">Register</a>
+                    <a href="/empresa/register">Register</a>
                 </PrimaryButton>
                 <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
