@@ -40,8 +40,8 @@ Route::group([
     Route::get('profile', [EmpresaController::class, 'showProfile'])->name('empresa.profile');
     Route::get('profile/vaga/{id}', [EmpresaController::class, 'showVaga'])->name('empresa.vaga');
     Route::put('profile/vaga/{id}', [EmpresaController::class, 'editVaga'])->name('empresa.vaga.edit');
-    Route::get('profile/create/vaga', [EmpresaController::class, 'createVagaForm'])->name('empresa.create.vaga.form');
-    Route::post('profile/create/vaga', [EmpresaController::class, 'createVaga'])->name('empresa.create.vaga.create');
+    Route::get('create/vaga', [EmpresaController::class, 'createVagaForm'])->name('empresa.create.vaga.form');
+    Route::post('create/vaga', [EmpresaController::class, 'createVaga'])->name('empresa.create.vaga.create');
 });
 
 Route::middleware('auth:web')->group(function () {
