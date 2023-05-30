@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cidade;
 use App\Models\Empresa;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
@@ -60,19 +61,32 @@ class EmpresaController extends Controller
     }
 
     public function showProfile() {
-        return Inertia::render('Profile/ProfileEmpresa');
+        $empresa = Empresa::with('vagas')->where('id', Auth::user()->getAuthIdentifier())->first();
+        return Inertia::render('Profile/ProfileEmpresa', [
+            'nome' => $empresa['nome'],
+            'vagas' => $empresa['vagas']
+        ]);
     }
 
     public function showVaga() {
 
     }
+    public function createVagaForm() {
+        return Inertia::render('Empresa/CreateVagaForm');
+    }
 
-    public function createVaga() {
+    public function createVaga(Request $request) {
 
     }
 
     public function editVaga() {
 
+    }
+
+    public function getCidades(Request $request) {
+        $sigla = $request->input('sigla');
+        $cidades = Cidade::query()->where('uf', $sigla)->get();
+        return response()->json($cidades);
     }
     /**
      * Display a listing of the resource.

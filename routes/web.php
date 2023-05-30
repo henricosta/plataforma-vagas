@@ -19,8 +19,8 @@ use App\Http\Controllers\EmpresaController;
 */
 
 Route::get('/', [VagaController::class, 'index']);
-
 Route::get('/vagas/busca', [VagaController::class, 'busca']);
+Route::get('cidades', [EmpresaController::class, 'getCidades'])->name('get.cidades');
 
 Route::group([
     'prefix' => 'empresa',
@@ -40,8 +40,8 @@ Route::group([
     Route::get('profile', [EmpresaController::class, 'showProfile'])->name('empresa.profile');
     Route::get('profile/vaga/{id}', [EmpresaController::class, 'showVaga'])->name('empresa.vaga');
     Route::put('profile/vaga/{id}', [EmpresaController::class, 'editVaga'])->name('empresa.vaga.edit');
-    Route::get('profile/vaga/create', [EmpresaController::class, 'createVaga'])->name('empresa.vaga.create.form');
-    Route::post('profile/vaga/create', [EmpresaController::class, 'createVaga'])->name('empresa.vaga.create');
+    Route::get('profile/create/vaga', [EmpresaController::class, 'createVagaForm'])->name('empresa.create.vaga.form');
+    Route::post('profile/create/vaga', [EmpresaController::class, 'createVaga'])->name('empresa.create.vaga.create');
 });
 
 Route::middleware('auth:web')->group(function () {
