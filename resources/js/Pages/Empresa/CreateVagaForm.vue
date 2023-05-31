@@ -5,8 +5,15 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import {Head, router, useForm} from '@inertiajs/vue3';
+import {Head, router, useForm, usePage} from '@inertiajs/vue3';
 import { onMounted, reactive, ref, watch, watchEffect } from 'vue';
+
+const props = defineProps({
+    success: {
+        type: Boolean,
+        default: false,
+    }
+})
 
 const estados = [
     {"nome": "Acre", "sigla": "AC"},
@@ -44,6 +51,7 @@ const state = reactive({
 })
 const estado = ref('Estado')
 const isCidadeDisabled = ref(true)
+const isSuccessMessagingShowing = ref(false)
 
 async function getCidades(sigla) {
     try {
@@ -57,6 +65,12 @@ async function getCidades(sigla) {
 
 onMounted(() => {
     getCidades('CE')
+    if (props.success) {
+        isSuccessMessagingShowing.value = true
+        setTimeout(() => {
+          isSuccessMessagingShowing.value = false
+        }, 3000);
+    }
 });
 
 watch(estado, (newVal, oldVal) => {
@@ -67,12 +81,21 @@ watch(estado, (newVal, oldVal) => {
 const form = useForm({
     titulo: '',
     descricao: '',
-    modalidade: '',
-    cidade: '',
+    modalidade: 0,
+    cidade_id: 0,
+    num_vagas: 0
 })
 
 function submit() {
-
+    try {
+        form.modalidade = Number(form.modalidade)
+        form.num_vagas = Number(form.num_vagas)
+        form.post(route('empresa.create.vaga'), {
+            onFinish: () => form.reset(),
+        })
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 
@@ -84,7 +107,7 @@ function submit() {
         <div class="py-12">
             <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <Section titulo="Nova vaga">
-                    <form @prevent.default="submit" class="mt-2">
+                    <form @submit.prevent="submit" class="mt-2">
                         <div>
                             <InputLabel for="titulo" value="Titulo da vaga" />
 
@@ -102,13 +125,13 @@ function submit() {
                         </div>
                         <div class="mt-3">
                             <InputLabel for="descricao" value="Descrição" />
-                            <textarea id="message" rows="4" class="block p-2.5 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" placeholder="Write your thoughts here..."></textarea>
-                            <InputError class="mt-2" :message="form.errors.email" />
+                            <textarea v-model="form.descricao" id="descricao" rows="4" class="block p-2.5 w-full text-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" placeholder="Escreva a descrição da vaga..."></textarea>
+                            <InputError class="mt-2" :message="form.errors.descricao"/>
                         </div>
                         <div class="mt-4 w-2/5">
                             <div>
-                                <select id="modalidade" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected disabled>Modalidade</option>
+                                <select v-model="form.modalidade" id="modalidade" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="0" selected disabled>Modalidade</option>
                                     <option value="1">Presencial</option>
                                     <option value="2">Híbrido</option>
                                     <option value="3">Remoto</option>
@@ -121,11 +144,26 @@ function submit() {
                                 </select>
                             </div>
                             <div class="mt-4">
-                                <select v-bind:disabled="isCidadeDisabled" id="cidade" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected disabled>Cidade</option>
-                                    <option v-for="cidade in state.cidades" :value="cidade.codigo" :key="cidade.id">{{ cidade.nome }}</option>
+                                <select v-bind:disabled="isCidadeDisabled" v-model="form.cidade" id="cidade" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="0" selected disabled>Cidade</option>
+                                    <option v-for="cidade in state.cidades" :value="cidade.id" :key="cidade.id">{{ cidade.nome }}</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="mt-4">
+                            <InputLabel for="numero_vagas" value="Número de vagas" />
+
+                            <TextInput
+                                id="numero_vagas"
+                                type="number"
+                                class="mt-1 block w-40"
+                                v-model="form.num_vagas"
+                                required
+                                autofocus
+                                autocomplete="username"
+                            />
+
+                            <InputError class="mt-2" :message="form.errors.titulo" />
                         </div>
                         <div class="flex items-center justify-end mt-8">
                             <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
@@ -136,9 +174,16 @@ function submit() {
                 </Section>
             </div>
         </div>
+        <div v-if="isSuccessMessagingShowing" id="mensagem-sucesso" class="top-2 p-6 border border-indigo-500 rounded-lg bg-white">
+            <h1>Vaga adicionada com sucesso</h1>
+        </div>
     </AuthenticatedLayout>
 </template>
 
 <style>
-
+#mensagem-sucesso {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
 </style>

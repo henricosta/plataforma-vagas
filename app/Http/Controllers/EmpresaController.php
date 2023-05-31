@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cidade;
 use App\Models\Empresa;
+use App\Models\Vaga;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,7 +77,18 @@ class EmpresaController extends Controller
     }
 
     public function createVaga(Request $request) {
+        Vaga::create([
+            'titulo' => $request->titulo,
+            'descricao' => $request->descricao,
+            'modalidade' => $request->modalidade,
+            'cidade_id' => $request->cidade_id,
+            'empresa_id' => Auth::user()->getAuthIdentifier(),
+            'num_vagas' => $request->num_vagas
+        ]);
 
+        return Inertia::render('Empresa/CreateVagaForm', [
+            'success' => true
+        ]);
     }
 
     public function editVaga() {

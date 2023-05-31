@@ -41,7 +41,7 @@ Route::group([
     Route::get('profile/vaga/{id}', [EmpresaController::class, 'showVaga'])->name('empresa.vaga');
     Route::put('profile/vaga/{id}', [EmpresaController::class, 'editVaga'])->name('empresa.vaga.edit');
     Route::get('create/vaga', [EmpresaController::class, 'createVagaForm'])->name('empresa.create.vaga.form');
-    Route::post('create/vaga', [EmpresaController::class, 'createVaga'])->name('empresa.create.vaga.create');
+    Route::post('create/vaga', [EmpresaController::class, 'createVaga'])->name('empresa.create.vaga');
 });
 
 Route::middleware('auth:web')->group(function () {

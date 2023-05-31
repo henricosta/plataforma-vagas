@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmpresaController;
 use App\Models\Empresa;
+use App\Models\Vaga;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
