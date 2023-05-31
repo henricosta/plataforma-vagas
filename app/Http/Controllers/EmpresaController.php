@@ -77,6 +77,7 @@ class EmpresaController extends Controller
     }
 
     public function createVaga(Request $request) {
+        // TODO: Validar os dados
         Vaga::create([
             'titulo' => $request->titulo,
             'descricao' => $request->descricao,
