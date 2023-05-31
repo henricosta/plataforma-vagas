@@ -27,7 +27,6 @@ class Vaga extends Model
     public function busca($busca, $modalidade) {
         $vagas = $this->modalidade($modalidade)
             ->leftJoin('empresas', 'vagas.empresa_id', '=', 'empresas.id')
-            ->select('vagas.*', 'empresas.nome as nome_empresa')
             ->where('vagas.titulo', 'like', "%{$busca}%")
             ->take(10)
             ->get();
@@ -36,9 +35,10 @@ class Vaga extends Model
     }
 
     public function listRecente() {
-        $vagas = $this->query()
-            ->leftJoin('empresas', 'vagas.empresa_id', '=', 'empresas.id')
-            ->select('vagas.*', 'empresas.nome as nome_empresa')
+        $vagas = Vaga::with('empresa')
+            ->latest('created_at')
+            ->join('cidades', 'cidades.id', 'vagas.cidade_id')
+            ->select('vagas.*', 'cidades.nome as nome_cidade')
             ->take(15)
             ->get();
         
