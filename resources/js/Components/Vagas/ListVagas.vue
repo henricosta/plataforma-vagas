@@ -10,7 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div>
+    <div class="w-2/5">
         <!-- A key desse v-for não pode ser o id da vaga, mas sim o index 
                 para a funcionalidade de selecionar vaga funcionar da forma correta.
             -->

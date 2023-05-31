@@ -28,11 +28,13 @@ const placeholder = [
 ]
 
 const form = reactive({
-    busca: null,
+    busca: '',
     modalidade: 0
 })
 
 function submit() {
+    console.log('logando busca')
+    console.log(form.busca)
     router.get('/vagas/busca', form)
 }
 
@@ -47,7 +49,7 @@ function updateModalidade(value) {
         <!-- Input de busca -->
         <div class="flex justify-center">
             <div class="py-8 flex">
-                <TextInput :model-value="form.busca" placeholder="Ex: Desenvolvedor web" class="w-96 rounded-r-none px-4" ></TextInput>
+                <TextInput v-model="form.busca" type="text" placeholder="Ex: Desenvolvedor web" class="w-96 rounded-r-none px-4" ></TextInput>
                 <PrimaryButton type="submit" class="px-4 py-4 rounded-l-none">Buscar vaga</PrimaryButton>
             </div>
         </div>

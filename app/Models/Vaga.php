@@ -25,12 +25,14 @@ class Vaga extends Model
     }
 
     public function busca($busca, $modalidade) {
-        $vagas = $this->modalidade($modalidade)
-            ->leftJoin('empresas', 'vagas.empresa_id', '=', 'empresas.id')
+        $vagas = Vaga::modalidade($modalidade)
+            ->with('empresa')
+            ->join('cidades', 'cidades.id', 'vagas.cidade_id')
+            ->select('vagas.*', 'cidades.nome as nome_cidade')
             ->where('vagas.titulo', 'like', "%{$busca}%")
             ->take(10)
             ->get();
-        
+
         return $vagas;
     }
 
