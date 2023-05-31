@@ -9,6 +9,8 @@ defineProps({
 </script>
 
 <template>
-    <Header :isLogged="isLogged" />
-    <slot></slot>
+    <div class="min-h-screen bg-gray-100">
+        <Header :isLogged="isLogged" />
+        <slot></slot>
+    </div>
 </template>
