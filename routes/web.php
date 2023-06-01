@@ -19,6 +19,7 @@ use App\Http\Controllers\EmpresaController;
 */
 
 Route::get('/', [VagaController::class, 'index']);
+Route::get('/vagas', [VagaController::class, 'listVagas']); // Rota usada no http request
 Route::get('/vagas/busca', [VagaController::class, 'busca']);
 Route::get('cidades', [EmpresaController::class, 'getCidades'])->name('get.cidades');
 

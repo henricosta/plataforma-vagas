@@ -26,12 +26,19 @@ class VagaController extends Controller
      */
     public function index()
     {
-        $vagas = $this->vagas->listRecente();
-        
+        $vagas = $this->listVagas();
+
         return Inertia::render('Home', [
             'vagas' => $vagas,
             'isLogged' => Auth::check()
         ]);
+    }
+
+    // Redundante por causa do fetch
+    public function listVagas() {
+        $vagas = $this->vagas->listRecente();
+
+        return $vagas->jsonSerialize();
     }
 
     /**

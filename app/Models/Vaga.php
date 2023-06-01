@@ -36,14 +36,16 @@ class Vaga extends Model
         return $vagas;
     }
 
-    public function listRecente() {
+    // TODO: Adicionar paginação
+    public function listRecente($page = 15) {
         $vagas = Vaga::with('empresa')
             ->latest('created_at')
             ->join('cidades', 'cidades.id', 'vagas.cidade_id')
             ->select('vagas.*', 'cidades.nome as nome_cidade')
-            ->take(15)
-            ->get();
-        
+            ->paginate(15);
+
+        dd($vagas);
+
         return $vagas;
     }
 
