@@ -2,10 +2,14 @@
 
 import ListVagas from "@/Components/Vagas/ListVagas.vue";
 import PageVaga from "@/Components/Vagas/PageVaga.vue";
-import {onBeforeUnmount, onMounted, reactive, ref} from "vue";
+import { onBeforeUnmount, onMounted, reactive, ref } from "vue";
 
 defineProps({
     vagas: Object,
+    previousPageUrl: String,
+    nextPageUrl: String,
+    totalPages: Number,
+    currentPage: Number
 })
 
 const vagaOnFocus = reactive({ vagaIndex: 0 })
@@ -31,19 +35,18 @@ function handleScrolling() {
 </script>
 
 <template>
-<!--    TODO: Adicionar página de "nenhuma vaga encontrada"-->
+    <!--    TODO: Adicionar página de "nenhuma vaga encontrada"-->
     <div class="flex justify-center">
-        <ListVagas :vagas="vagas" :update-vaga-focus="updateVagaOnFocus"/>
+        <ListVagas :vagas="vagas" :update-vaga-focus="updateVagaOnFocus" :next-page-url="nextPageUrl"
+            :previous-page-url="previousPageUrl" :total-pages="totalPages" :current-page="currentPage"/>
         <div class="w-2/4">
-            <PageVaga  id="page-vaga" :vaga="vagas[vagaOnFocus.vagaIndex]" :class="{
+            <PageVaga id="page-vaga" :vaga="vagas[vagaOnFocus.vagaIndex]" :class="{
                 'fixed': isFixed,
                 'bottom-0': isFixed,
                 'w-2/4': isFixed
-            }"/>
+            }" />
         </div>
     </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

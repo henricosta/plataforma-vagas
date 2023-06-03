@@ -6,7 +6,11 @@ import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
 defineProps({
     vagas: Object,
-    isLogged: Boolean
+    nextPageUrl: String,
+    previousPageUrl: String,
+    isLogged: Boolean,
+    totalPages: Number,
+    currentPage: Number,
 })
 
 </script>
@@ -14,6 +18,6 @@ defineProps({
 <template>
     <DefaultLayout :is-logged="isLogged">
         <FormBuscaVaga />
-        <LayoutVagas :vagas="vagas"/>
+        <LayoutVagas :vagas="vagas" :previous-page-url="previousPageUrl" :next-page-url="nextPageUrl" :total-pages="totalPages" :current-page="currentPage" />
     </DefaultLayout>
 </template>

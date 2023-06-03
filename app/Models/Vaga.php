@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Vaga extends Model
 {
@@ -24,27 +25,24 @@ class Vaga extends Model
         return $this->belongsTo(Empresa::class);
     }
 
-    public function busca($busca, $modalidade) {
+    public function busca($busca, $modalidade, $page=1): LengthAwarePaginator {
         $vagas = Vaga::modalidade($modalidade)
             ->with('empresa')
             ->join('cidades', 'cidades.id', 'vagas.cidade_id')
             ->select('vagas.*', 'cidades.nome as nome_cidade')
             ->where('vagas.titulo', 'like', "%{$busca}%")
-            ->take(10)
-            ->get();
+            ->paginate(perPage: 10, page: $page);
 
         return $vagas;
     }
 
     // TODO: Adicionar paginação
-    public function listRecente($page = 15) {
+    public function listRecente($page=1): LengthAwarePaginator {
         $vagas = Vaga::with('empresa')
             ->latest('created_at')
             ->join('cidades', 'cidades.id', 'vagas.cidade_id')
             ->select('vagas.*', 'cidades.nome as nome_cidade')
-            ->paginate(15);
-
-        dd($vagas);
+            ->paginate(perPage: 10, page: $page);
 
         return $vagas;
     }

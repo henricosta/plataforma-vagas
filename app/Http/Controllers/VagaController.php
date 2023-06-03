@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vaga;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -12,33 +13,36 @@ class VagaController extends Controller
     public function __construct(protected Vaga $vagas) {}
 
     public function busca(Request $request) {
-        $busca = $request->input('busca');
-        $modalidade = $request->input('modalidade');
+        $input = $request->only(['busca', 'modalidade']);
+        $page = $request->input('page');
 
-        $vagas = $this->vagas->busca($busca, $modalidade);
+        $vagas = $this->vagas->busca($input['busca'], $input['modalidade'], $page);
 
         return Inertia::render('Home', [
-            'vagas' => $vagas,
+            'isLogged' => Auth::check(),
+            'vagas' => $vagas->items(),
+            'nextPageUrl' => $vagas->nextPageUrl(),
+            'previousPageUrl' => $vagas->previousPageUrl(),
+            'totalPages' => $vagas->lastPage(),
+            'currentPage' => $vagas->currentPage()
         ]);
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $vagas = $this->listVagas();
+        $page = $request->input('page');
+        $vagas = $this->vagas->listRecente($page);
 
         return Inertia::render('Home', [
-            'vagas' => $vagas,
-            'isLogged' => Auth::check()
+            'isLogged' => Auth::check(),
+            'vagas' => $vagas->items(),
+            'nextPageUrl' => $vagas->nextPageUrl(),
+            'previousPageUrl' => $vagas->previousPageUrl(),
+            'totalPages' => $vagas->lastPage(),
+            'currentPage' => $vagas->currentPage()
         ]);
-    }
-
-    // Redundante por causa do fetch
-    public function listVagas() {
-        $vagas = $this->vagas->listRecente();
-
-        return $vagas->jsonSerialize();
     }
 
     /**
