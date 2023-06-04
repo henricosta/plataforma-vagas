@@ -15,18 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $path = storage_path() . "\\json\\cidades.json";
-        $cidades = json_decode(file_get_contents($path), true);
-
-        foreach ($cidades['data'] as $cidade) {
-            DB::table('cidades')->insert([
-                'id' => $cidade['Id'],
-                'codigo' => $cidade['Codigo'],
-                'nome' => $cidade['Nome'],
-                'uf' => $cidade['Uf']
-            ]);
-        }
-
         User::factory()
             ->count(50)
             ->create();
