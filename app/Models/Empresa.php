@@ -11,7 +11,15 @@ class Empresa extends Authenticatable
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'email', 'password'];
+    protected $fillable = [
+        'nome_titular',
+        'nome_empresa',
+        'email',
+        'cnpj',
+        'cep',
+        'telefone',
+        'password'
+    ];
     protected $hidden = ['password', 'remember_token'];
 
     public function vagas(): HasMany {
