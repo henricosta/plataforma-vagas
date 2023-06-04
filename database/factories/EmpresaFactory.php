@@ -18,8 +18,11 @@ class EmpresaFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome' => fake()->unique()->domainWord(),
-            'email' => fake()->unique()->email(),
+            'nome' => fake()->unique()->company(),
+            'email' => fake()->unique()->companyEmail(),
+            'telefone' => fake()->unique()->phoneNumber(),
+            'cnpj' => fake()->unique()->regexify('/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/'),
+            'cep' => fake()->regexify('/^\d{5}-\d{3}$/'),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];
