@@ -18,7 +18,8 @@ class EmpresaFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome' => fake()->unique()->company(),
+            'nome_titular' => fake()->name(),
+            'nome_empresa' => fake()->unique()->company(),
             'email' => fake()->unique()->companyEmail(),
             'telefone' => fake()->unique()->phoneNumber(),
             'cnpj' => fake()->unique()->regexify('/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/'), // 14 Digitos de 0-9
