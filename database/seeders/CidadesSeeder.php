@@ -7,9 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class CidadesSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    // TODO: Log das cidades enquanto roda a migration
     public function run(): void
     {
         $path = storage_path() . "\\json\\cidades.json";
