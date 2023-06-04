@@ -29,7 +29,7 @@ const props = defineProps({
                     <div class="flex items-center">
                         <Link href="/" class="px-2">Buscar vagas</Link>
                         <Link v-if="props.isLogged" href="/profile/vagas" class="px-2">Minhas vagas</Link>
-                        <Link v-else href="/empresa" class="px-2">Para empresas</Link>
+                        <Link v-else :href="route('empresa.register')" class="px-2">Para empresas</Link>
                     </div>
                 </div>
                 <!-- Botões da direita -->
