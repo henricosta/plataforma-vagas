@@ -25,7 +25,7 @@ function getPageLink(i) {
                             para a funcionalidade de selecionar vaga funcionar da forma correta.
                         -->
         <div v-for="(vaga, index) in props.vagas" :key="index">
-            <CardVaga :titulo="vaga.titulo" :nome_empresa="vaga.empresa.nome" :descricao="vaga.descricao"
+            <CardVaga :titulo="vaga.titulo" :nome_empresa="vaga.empresa.nome_empresa" :descricao="vaga.descricao"
                 :num_vagas="vaga.num_vagas" :modalidade="vaga.modalidade" :cidade="vaga.nome_cidade"
                 @click="updateVagaFocus(index)" />
         </div>
