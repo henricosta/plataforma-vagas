@@ -35,20 +35,30 @@ class EmpresaController extends Controller
 
     public function register(Request $req) {
         $validatedData = $req->validate([
-            'nome' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:empresas',
+            'nome_titular' => 'required|string|max:255|unique:empresas',
+            'nome_empresa' => 'required|string|max:255',
+            'cnpj' => 'required|string|digits:14|unique:empresas',
+            'cep' => 'required|string|digits:8',
+            'email' => 'required|string|email|max:255',
+            'telefone' => 'required|string|max:13',
+            'num_funcionarios' => 'required|min:1',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
         $empresa = Empresa::create([
-            'nome' => $validatedData['nome'],
+            'nome_titular' => $validatedData['nome_titular'],
+            'nome_empresa' => $validatedData['nome_empresa'],
+            'cnpj' => $validatedData['cnpj'],
+            'cep' => $validatedData['cep'],
             'email' => $validatedData['email'],
+            'telefone' => $validatedData['telefone'],
+            'num_funcionarios' => $validatedData['num_funcionarios'],
             'password' => Hash::make($validatedData['password']),
         ]);
 
         Auth::guard('empresa')->login($empresa);
 
-        return redirect()->intended('/');
+        return redirect()->intended(route('empresa.profile'));
     }
 
     public function logout(Request $req) {
