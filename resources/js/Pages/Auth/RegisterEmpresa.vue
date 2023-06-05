@@ -1,20 +1,6 @@
 <script setup>
 import FormEmpresa from '@/Components/FormEmpresa.vue'
 import Header from '@/Components/Header.vue';
-import { useForm } from '@inertiajs/vue3';
-
-const form = useForm({
-    nome: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-});
-
-const submit = () => {
-    form.post(route('empresa.register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
-};
 </script>
 
 <template>

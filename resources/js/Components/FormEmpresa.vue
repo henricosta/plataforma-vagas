@@ -4,7 +4,9 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm } from '@inertiajs/vue3';
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
+
+// TODO: formatar input de CEP e CNPJ
 
 const form = useForm({
     nome_titular: '',
@@ -18,14 +20,11 @@ const form = useForm({
     password_confirmation: '',
 });
 
-const submit = () => {
-    form.telefone = telefone
-    form.post(route('empresa.register'));
-};
-
+const telefoneInput = ref('')
 const telefone = ref('');
 
 function formatTelefone() {
+    telefoneInput.value = telefone.value.replace(/\D/g, "")
     const rawNumber = telefone.value.replace(/\D/g, ""); // Remove non-digit characters
     let formattedNumber = "";
 
@@ -52,7 +51,10 @@ function formatTelefone() {
     telefone.value = formattedNumber;
 }
 
-
+const submit = () => {
+    form.telefone = telefoneInput
+    form.post(route('empresa.register'));
+};
 
 </script>
 
