@@ -3,21 +3,27 @@
 import FormBuscaVaga from "@/Components/Vagas/FormBuscaVaga.vue";
 import LayoutVagas from "@/Layouts/LayoutVagas.vue";
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
+import UserLayout from "@/Layouts/UserLayout.vue";
 
-defineProps({
+const props = defineProps({
     vagas: Object,
     nextPageUrl: String,
     previousPageUrl: String,
-    isLogged: Boolean,
     totalPages: Number,
     currentPage: Number,
+    auth: String,
 })
 
 </script>
 
 <template>
-    <DefaultLayout :is-logged="isLogged">
+    <UserLayout v-if="props.auth == 'web'">
+        {{ console.log(props.auth) }}
         <FormBuscaVaga />
-        <LayoutVagas :vagas="vagas" :previous-page-url="previousPageUrl" :next-page-url="nextPageUrl" :total-pages="totalPages" :current-page="currentPage" />
+        <LayoutVagas :vagas="props.vagas" :previous-page-url="props.previousPageUrl" :next-page-url="props.nextPageUrl" :total-pages="props.totalPages" :current-page="props.currentPage" />
+    </UserLayout>
+    <DefaultLayout v-else :is-logged="true">
+        <FormBuscaVaga />
+        <LayoutVagas :vagas="props.vagas" :previous-page-url="props.previousPageUrl" :next-page-url="props.nextPageUrl" :total-pages="props.totalPages" :current-page="props.currentPage" />
     </DefaultLayout>
 </template>
