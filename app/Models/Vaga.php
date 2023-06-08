@@ -25,6 +25,10 @@ class Vaga extends Model
         return $this->belongsTo(Empresa::class);
     }
 
+    public function candidaturas() {
+        return $this->belongsToMany(Candidatura::class);
+    }
+
     public function busca($busca, $modalidade, $page=1): LengthAwarePaginator {
         $vagas = Vaga::modalidade($modalidade)
             ->with('empresa')
@@ -52,5 +56,9 @@ class Vaga extends Model
             return $query->where('modalidade', '=', $modalidade);
         }
         return $query;
+    }
+
+    public function candidatos() {
+        return $this->belongsToMany(User::class, 'candidaturas');
     }
 }

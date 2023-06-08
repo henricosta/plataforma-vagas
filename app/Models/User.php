@@ -65,4 +65,8 @@ class User extends Authenticatable
     public function competencias() {
         return $this->belongsToMany(Competencia::class, 'user_competencia', 'user_id', 'competencia_id');
     }
+
+    public function vagas() {
+        return $this->belongsToMany(Vaga::class, 'candidaturas');
+    }
 }
