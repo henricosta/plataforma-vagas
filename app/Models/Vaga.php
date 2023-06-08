@@ -29,8 +29,9 @@ class Vaga extends Model
         return $this->belongsToMany(Candidatura::class);
     }
 
-    public function busca($busca, $modalidade, $page=1): LengthAwarePaginator {
+    public function busca($busca, $modalidade, $data=4, $page=1): LengthAwarePaginator {
         $vagas = Vaga::modalidade($modalidade)
+            ->data($data)
             ->with('empresa')
             ->join('cidades', 'cidades.id', 'vagas.cidade_id')
             ->select('vagas.*', 'cidades.nome as nome_cidade')
@@ -57,6 +58,28 @@ class Vaga extends Model
         }
         return $query;
     }
+
+    public function scopeData($query, $value) {
+        switch ($value) {
+            case 1:
+                $date = now()->subDay();
+                break;
+            case 2:
+                $date = now()->subWeek();
+                break;
+            case 3:
+                $date = now()->subMonth();
+                break;
+            case 4:
+                $date = now()->subMonths(3);
+                break;
+            default:
+                return $query;
+    }
+
+    return $query->where('created_at', '>=', $date);
+}
+
 
     public function candidatos() {
         return $this->belongsToMany(User::class, 'candidaturas');

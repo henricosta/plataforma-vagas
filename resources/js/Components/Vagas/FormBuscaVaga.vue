@@ -6,7 +6,7 @@ import SelectInput from "../SelectInput.vue";
 import TextInput from "../TextInput.vue";
 import PrimaryButton from "../PrimaryButton.vue";
 
-const placeholder = [
+const modalidade_options = [
     {
         filter: 'modalidade',
         text: 'Modalidade',
@@ -17,11 +17,36 @@ const placeholder = [
             },
             {
                 id: 2,
-                nome: 'Remoto'
+                nome: 'Híbrido'
             },
             {
                 id: 3,
-                nome: 'Híbrido'
+                nome: 'Remoto'
+            }
+        ]
+    }
+]
+
+const data_options = [
+    {
+        filter: 'data',
+        text: 'Data de publicação',
+        options: [
+            {
+                id: 1,
+                nome: 'Últimas 24 horas'
+            },
+            {
+                id: 2,
+                nome: 'Últimos 7 dias'
+            },
+            {
+                id: 3,
+                nome: 'Últimos 30 dias'
+            },
+            {
+                id: 4,
+                nome: 'Últimos 3 meses'
             }
         ]
     }
@@ -29,7 +54,8 @@ const placeholder = [
 
 const form = reactive({
     busca: '',
-    modalidade: 0
+    modalidade: 0,
+    data: 0,
 })
 
 function submit() {
@@ -40,6 +66,11 @@ function submit() {
 
 function updateModalidade(value) {
     form.modalidade = value
+    router.get('/vagas/busca', form)
+}
+
+function updateData(value) {
+    form.data = value
     router.get('/vagas/busca', form)
 }
 
@@ -54,8 +85,9 @@ function updateModalidade(value) {
             </div>
         </div>
         <!-- Filtros de vaga -->
-        <div class="border-b-2 border-t-2 py-4">
-            <SelectInput @change="updateModalidade" :selected="form.modalidade" v-for="item in placeholder" :filter="item.filter" :text="item.text" :options="item.options"/>
+        <div class="border-b-2 border-t-2 py-4 flex justify-center">
+            <SelectInput @change="updateModalidade" :selected="form.modalidade" v-for="item in modalidade_options" :filter="item.filter" :text="item.text" :options="item.options"/>
+            <SelectInput @change="updateData" :selected="form.data" v-for="item in data_options" :filter="item.filter" :text="item.text" :options="item.options"/>
         </div>
     </form>
 </template>
