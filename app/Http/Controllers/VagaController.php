@@ -34,14 +34,18 @@ class VagaController extends Controller
     {
         $page = $request->input('page');
         $vagas = $this->vagas->listRecente($page);
+        $auth = 'guest';
+
+        if (Auth::guard('web')->check()) $auth = 'web';
+        if (Auth::guard('empresa')->check()) $auth = 'empresa';
 
         return Inertia::render('Home', [
-            'isLogged' => Auth::check(),
+            'auth' => $auth,
             'vagas' => $vagas->items(),
             'nextPageUrl' => $vagas->nextPageUrl(),
             'previousPageUrl' => $vagas->previousPageUrl(),
             'totalPages' => $vagas->lastPage(),
-            'currentPage' => $vagas->currentPage()
+            'currentPage' => $vagas->currentPage(),
         ]);
     }
 
