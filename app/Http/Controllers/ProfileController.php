@@ -86,4 +86,32 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function candidatar(Request $request) {
+        if (!Auth::guard('web')->check()) {
+            return response()->json([
+                'redirect' => true
+            ]);
+        }
+
+        $vagaId = $request->input('vaga_id');
+        $action = $request->input('action');
+        
+        if ($action == 'create') {
+            if (!Auth::user()->vagas()->wherePivot('vaga_id', $vagaId)->exists()) {
+                Auth::user()->vagas()->attach($vagaId);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => $action
+            ]);
+        } elseif ($action == 'remove') {
+            Auth::user()->vagas()->detach($vagaId);
+
+            return response()->json([
+                'success' => true
+            ]);
+        }
+    }
 }

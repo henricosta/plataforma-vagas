@@ -18,6 +18,7 @@ use App\Http\Controllers\EmpresaController;
 Route::get('/', [VagaController::class, 'index']);
 Route::get('/vagas/busca', [VagaController::class, 'busca']);
 Route::get('cidades', [EmpresaController::class, 'getCidades'])->name('get.cidades');
+Route::post('/candidatar', [ProfileController::class, 'candidatar'])->name('candidatar');
 
 Route::group([
     'prefix' => 'empresa',
