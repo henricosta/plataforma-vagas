@@ -5,7 +5,7 @@ import Header from '@/Components/Header.vue';
 
 <template>
     <Header></Header>
-    <div class="min-h-screen background-image">
+    <div class="min-h-screen bg-gray-100">
         <div class="flex justify-center">
             <FormEmpresa/>
         </div>
@@ -13,9 +13,4 @@ import Header from '@/Components/Header.vue';
 </template>
 
 <style>
-.background-image {
-    background-image: url('@/assets/funcionarios.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 </style>
