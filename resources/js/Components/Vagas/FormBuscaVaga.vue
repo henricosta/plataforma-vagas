@@ -1,82 +1,85 @@
 <script setup>
 
 import {router} from "@inertiajs/vue3";
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import SelectInput from "../SelectInput.vue";
 import TextInput from "../TextInput.vue";
 import PrimaryButton from "../PrimaryButton.vue";
+import axios from "axios";
 
-const modalidade_options = [
-    {
-        filter: 'modalidade',
-        text: 'Modalidade',
-        options: [
-            {
-                id: 1,
-                nome: 'Presencial'
-            },
-            {
-                id: 2,
-                nome: 'Híbrido'
-            },
-            {
-                id: 3,
-                nome: 'Remoto'
-            }
-        ]
-    }
+const estados = [
+    {nome: "Acre", value: "AC"},
+    {nome: "Alagoas", value: "AL"},
+    {nome: "Amapá", value: "AP"},
+    {nome: "Amazonas", value: "AM"},
+    {nome: "Bahia", value: "BA"},
+    {nome: "Ceará", value: "CE"},
+    {nome: "Distrito Federal", value: "DF"},
+    {nome: "Espírito Santo", value: "ES"},
+    {nome: "Goiás", value: "GO"},
+    {nome: "Maranhão", value: "MA"},
+    {nome: "Mato Grosso", value: "MT"},
+    {nome: "Mato Grosso do Sul", value: "MS"},
+    {nome: "Minas Gerais", value: "MG"},
+    {nome: "Pará", value: "PA"},
+    {nome: "Paraíba", value: "PB"},
+    {nome: "Paraná", value: "PR"},
+    {nome: "Pernambuco", value: "PE"},
+    {nome: "Piauí", value: "PI"},
+    {nome: "Rio de Janeiro", value: "RJ"},
+    {nome: "Rio Grande do Norte", value: "RN"},
+    {nome: "Rio Grande do Sul", value: "RS"},
+    {nome: "Rondônia", value: "RO"},
+    {nome: "Roraima", value: "RR"},
+    {nome: "Santa Catarina", value: "SC"},
+    {nome: "São Paulo", value: "SP"},
+    {nome: "Sergipe", value: "SE"},
+    {nome: "Tocantins", value: "TO"}
 ]
-
-const data_options = [
-    {
-        filter: 'data',
-        text: 'Data de publicação',
-        options: [
-            {
-                id: 1,
-                nome: 'Últimas 24 horas'
-            },
-            {
-                id: 2,
-                nome: 'Últimos 7 dias'
-            },
-            {
-                id: 3,
-                nome: 'Últimos 30 dias'
-            },
-            {
-                id: 4,
-                nome: 'Últimos 3 meses'
-            }
-        ]
-    }
+const modalidades = [
+    {nome: 'Presencial', value: 1},
+    {nome: 'Híbrido', value: 2},
+    {nome: 'Remoto', value: 3},
+]
+const datas = [
+    {nome: 'Últimas 24 horas', value: 1},
+    {nome: 'Últimos 7 dias', value: 2},
+    {nome: 'Últimos 30 dias', value: 3},
+    {nome: 'Últimos 3 meses', value: 4},
 ]
 
 const form = reactive({
     busca: '',
     modalidade: 0,
     data: 0,
+    estado: '0',
+    page: 1
 })
 
-function submit() {
-    console.log('logando busca')
-    console.log(form.busca)
-    router.get('/vagas/busca', form)
-}
+const emit = defineEmits(["submit"])
 
 function updateModalidade(value) {
     form.modalidade = value
-    router.get('/vagas/busca', form)
+    emit("submit", form)
 }
 
 function updateData(value) {
     form.data = value
-    router.get('/vagas/busca', form)
+    emit("submit", form)
+}
+
+function updateEstado(value) {
+    form.estado = value
+    emit("submit", form)
+}
+
+function submitForm() {
+    emit("submit", form)
 }
 
 </script>
 <template>
-    <form @submit.prevent="submit" id="formulario-busca-vaga">
+    <form @submit.prevent="submitForm" id="formulario-busca-vaga">
         <!-- Input de busca -->
         <div class="flex justify-center">
             <div class="py-8 flex">
@@ -86,8 +89,9 @@ function updateData(value) {
         </div>
         <!-- Filtros de vaga -->
         <div class="border-b-2 border-t-2 py-4 flex justify-center">
-            <SelectInput @change="updateModalidade" :selected="form.modalidade" v-for="item in modalidade_options" :filter="item.filter" :text="item.text" :options="item.options"/>
-            <SelectInput @change="updateData" :selected="form.data" v-for="item in data_options" :filter="item.filter" :text="item.text" :options="item.options"/>
+            <SelectInput @change="updateEstado" :selected="form.estado" filter_name="estado" text="Estado" :options="estados"/>
+            <SelectInput @change="updateModalidade" :selected="form.modalidade" filter_name="modalidade" text="Modalidade" :options="modalidades"/>
+            <SelectInput @change="updateData" :selected="form.data" filter_name="data" text="Data de publicação" :options="datas"/>
         </div>
     </form>
 </template>
