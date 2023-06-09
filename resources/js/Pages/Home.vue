@@ -14,7 +14,7 @@ const props = defineProps({
     currentPage: Number,
     auth: String,
 })
-const vagas = ref([])
+const vagas = ref(0)
 function getVagas(formData) {
     console.log(formData)
     axios.get('vagas/busca', {
@@ -25,21 +25,22 @@ function getVagas(formData) {
         vagas.value = res.data.vagas
     })
     .catch(err => {
-        console.log(err)
+        console.log('logging error')
+        console.log(err.response.data.error.error_message)
     })
 }
 onBeforeMount(() => {
-    getVagas({ busca: '', modalidade: 0, data: 0, estado: '0'})
+    getVagas({ busca: '', modalidade: 0, data: 0, estado: '0', page: 1, estado: 'CE' })
 })
 </script>
 
 <template>
     <UserLayout v-if="props.auth == 'web'">
         <FormBuscaVaga @submit="getVagas" />
-        <LayoutVagas :vagas="vagas" :previous-page-url="props.previousPageUrl" :next-page-url="props.nextPageUrl" :total-pages="props.totalPages" :current-page="props.currentPage" />
+        <LayoutVagas v-if="vagas" :vagas="vagas" :previous-page-url="props.previousPageUrl" :next-page-url="props.nextPageUrl" :total-pages="props.totalPages" :current-page="props.currentPage" />
     </UserLayout>
     <GuestLayout v-else>
         <FormBuscaVaga @submit="getVagas"/>
-        <LayoutVagas :vagas="vagas" :previous-page-url="props.previousPageUrl" :next-page-url="props.nextPageUrl" :total-pages="props.totalPages" :current-page="props.currentPage" />
+        <LayoutVagas v-if="vagas" :vagas="vagas" :previous-page-url="props.previousPageUrl" :next-page-url="props.nextPageUrl" :total-pages="props.totalPages" :current-page="props.currentPage" />
     </GuestLayout>
 </template>

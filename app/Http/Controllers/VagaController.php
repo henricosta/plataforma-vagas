@@ -16,12 +16,7 @@ class VagaController extends Controller
         $input = $request->only(['busca', 'modalidade', 'data', 'page', 'estado']);
         
         try {
-            $vagas = $this->vagas->busca(
-                $input['busca'],
-                $input['modalidade'],
-                $input['data'],
-                $input['page']
-            );
+            $vagas = $this->vagas->busca($input, $input['page']);
 
             return response()->json([
                 'vagas' => $vagas->items(),
