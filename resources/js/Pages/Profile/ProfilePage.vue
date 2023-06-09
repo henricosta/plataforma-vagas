@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
 import {reactive, ref} from "vue";
-import route from 'ziggy-js'
+import { Link } from '@inertiajs/vue3';
 
 // TODO: Criar componente para modal
 defineProps({
@@ -54,7 +54,10 @@ function closeModalOutside(event) {
                         <span class="font-medium text-gray-600 dark:text-gray-300">JL</span>
                     </div>
                     <div>
-                        <div class="mb-3 text-4xl font-extrabold dark:text-white" >{{nome_completo}}</div>
+                        <div class="flex items-center">
+                            <div class="mb-3 text-4xl font-extrabold dark:text-white" >{{nome_completo}}</div>
+                            <Link :href="route('profile.edit')" class="ml-4 mb-2 py-2 px-3 rounded-md border bg-gray-200 shadow-sm text-sm hover:bg-gray-400">Editar perfil</Link>
+                        </div>
                         <ul class="max-w-md space-y-1 text-gray-500 list-none list-inside dark:text-gray-400">
                             <li>Email: {{email}}</li>
                             <li v-if="telefone" >Telefone: {{telefone}}</li>
