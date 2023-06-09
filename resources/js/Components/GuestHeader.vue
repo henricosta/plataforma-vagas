@@ -11,23 +11,23 @@ import { Link } from '@inertiajs/vue3';
                 <div class="flex">
                     <!-- Logo -->
                     <div class="flex shrink-0 items-center mx-10">
-                        <Link href="/" class="text-gray-900">
+                        <a href="/" class="text-gray-900">
                         HOME
-                        </Link>
+                        </a>
                     </div>
                     <!-- Navigation Links -->
                     <div class="flex items-center">
-                        <Link href="/" class="px-2">Buscar vagas</Link>
-                        <Link :href="route('empresa.register')" class="px-2">Para empresas</Link>
+                        <a href="/" class="px-2">Buscar vagas</a>
+                        <a :href="route('empresa.register')" class="px-2">Para empresas</a>
                     </div>
                 </div>
                 <!-- Botões da direita -->
                 <div class="flex items-center mr-8">
                     <div>
-                        <Link href="/login" class="mr-5">Entrar</Link>
-                        <Link href="/register">
+                        <a href="/login" class="mr-5">Entrar</a>
+                        <a href="/register">
                             <PrimaryButton class="py-3">Cadastre-se</PrimaryButton>
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>
