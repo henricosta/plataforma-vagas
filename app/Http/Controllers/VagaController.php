@@ -12,14 +12,17 @@ class VagaController extends Controller
 {
     public function __construct(protected Vaga $vagas) {}
 
-    public function busca(Request $request) {
-        $input = $request->only(['busca', 'modalidade']);
-        $page = $request->input('page');
+    public function busca(Request $request) {   
+        $input = $request->only(['busca', 'modalidade', 'data', 'page', 'estado']);
+        
+        $vagas = $this->vagas->busca(
+            $input['busca'],
+            $input['modalidade'],
+            $input['data'],
+            $input['page']
+        );
 
-        $vagas = $this->vagas->busca($input['busca'], $input['modalidade'], $page);
-
-        return Inertia::render('Home', [
-            'isLogged' => Auth::check(),
+        return response()->json([
             'vagas' => $vagas->items(),
             'nextPageUrl' => $vagas->nextPageUrl(),
             'previousPageUrl' => $vagas->previousPageUrl(),

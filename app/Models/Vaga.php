@@ -29,13 +29,13 @@ class Vaga extends Model
         return $this->belongsToMany(Candidatura::class);
     }
 
-    public function busca($busca, $modalidade, $data=4, $page=1): LengthAwarePaginator {
+    public function busca($busca, $modalidade, $data, $page=1): LengthAwarePaginator {
         $vagas = Vaga::modalidade($modalidade)
             ->data($data)
+            ->titulo($busca)
             ->with('empresa')
             ->join('cidades', 'cidades.id', 'vagas.cidade_id')
             ->select('vagas.*', 'cidades.nome as nome_cidade')
-            ->where('vagas.titulo', 'like', "%{$busca}%")
             ->paginate(perPage: 10, page: $page);
 
         return $vagas;
@@ -52,12 +52,21 @@ class Vaga extends Model
         return $vagas;
     }
 
+    public function scopeTitulo($query, $busca) {
+        if (strlen($busca) > 1) {
+            return $query->where('vagas.titulo', 'like', "%{$busca}%");
+        }
+
+        return $query;
+    }
+
     public function scopeModalidade(Builder $query, $modalidade) {
         if($modalidade > 0) {
             return $query->where('modalidade', '=', $modalidade);
         }
         return $query;
     }
+
 
     public function scopeData($query, $value) {
         switch ($value) {
@@ -73,7 +82,7 @@ class Vaga extends Model
             case 4:
                 $date = now()->subMonths(3);
                 break;
-            default:
+            case 0:
                 return $query;
     }
 
