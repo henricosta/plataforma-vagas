@@ -97,18 +97,27 @@ function submitForm() {
     emit("submit", form)
 }
 
+function resetFilters() {
+    form.estado = '0'
+    form.data = 0
+    form.cidade_id = 0
+    form.modalidade = 0
+    emit('submit', form)
+}
+
 </script>
 <template>
     <form @submit.prevent="submitForm" id="formulario-busca-vaga">
         <!-- Input de busca -->
-        <div class="flex justify-center">
+        <div class="bg-gray-50 flex justify-center">
             <div class="py-8 flex">
                 <TextInput v-model="form.busca" type="text" placeholder="Ex: Desenvolvedor web" class="w-96 rounded-r-none px-4" ></TextInput>
                 <PrimaryButton type="submit" class="px-4 py-4 rounded-l-none">Buscar vaga</PrimaryButton>
             </div>
         </div>
         <!-- Filtros de vaga -->
-        <div class="border-b-2 border-t-2 py-4 flex justify-center">
+        <div class="border-t shadow-sm bg-gray-50 py-4 flex justify-center">
+            <button @click="resetFilters" class="rounded-full border border-gray-500 hover:bg-gray-900 hover:text-white px-5 mr-5" >Redefinir filtros</button>
             <SelectInput @change="updateEstado" :selected="form.estado" filter_name="estado" text="Estado" :options="estados"/>
             <SelectInput v-if="cidades.length > 0"  @change="updateCidade" :selected="form.cidade_id" filter_name="cidade" text="Cidade" :options="cidades"/>
             <SelectInput @change="updateModalidade" :selected="form.modalidade" filter_name="modalidade" text="Modalidade" :options="modalidades"/>
