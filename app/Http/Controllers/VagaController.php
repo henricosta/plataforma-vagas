@@ -15,20 +15,24 @@ class VagaController extends Controller
     public function busca(Request $request) {   
         $input = $request->only(['busca', 'modalidade', 'data', 'page', 'estado']);
         
-        $vagas = $this->vagas->busca(
-            $input['busca'],
-            $input['modalidade'],
-            $input['data'],
-            $input['page']
-        );
+        try {
+            $vagas = $this->vagas->busca(
+                $input['busca'],
+                $input['modalidade'],
+                $input['data'],
+                $input['page']
+            );
 
-        return response()->json([
-            'vagas' => $vagas->items(),
-            'nextPageUrl' => $vagas->nextPageUrl(),
-            'previousPageUrl' => $vagas->previousPageUrl(),
-            'totalPages' => $vagas->lastPage(),
-            'currentPage' => $vagas->currentPage()
-        ]);
+            return response()->json([
+                'vagas' => $vagas->items(),
+                'nextPageUrl' => $vagas->nextPageUrl(),
+                'previousPageUrl' => $vagas->previousPageUrl(),
+                'totalPages' => $vagas->lastPage(),
+                'currentPage' => $vagas->currentPage()
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error_message' => $e->getMessage()]);
+        }
     }
     /**
      * Display a listing of the resource.
