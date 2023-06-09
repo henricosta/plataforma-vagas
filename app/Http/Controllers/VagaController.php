@@ -13,7 +13,7 @@ class VagaController extends Controller
     public function __construct(protected Vaga $vagas) {}
 
     public function busca(Request $request) {   
-        $input = $request->only(['busca', 'modalidade', 'data', 'page', 'estado']);
+        $input = $request->only(['busca', 'modalidade', 'data', 'page', 'estado', 'cidade_id']);
         
         try {
             $vagas = $this->vagas->busca($input, $input['page']);
@@ -26,7 +26,7 @@ class VagaController extends Controller
                 'currentPage' => $vagas->currentPage()
             ]);
         } catch (\Exception $e) {
-            return response()->json(['error_message' => $e->getMessage()]);
+            return response()->json(['error_message' => 'Erro em busca: ' . $e->getMessage()]);
         }
     }
     /**

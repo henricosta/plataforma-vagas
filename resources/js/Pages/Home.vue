@@ -30,7 +30,7 @@ function getVagas(formData) {
     })
 }
 onBeforeMount(() => {
-    getVagas({ busca: '', modalidade: 0, data: 0, estado: '0', page: 1, estado: 'CE' })
+    getVagas({ busca: '', modalidade: 0, data: 0, estado: 0, page: 1, cidade_id: 0 })
 })
 </script>
 

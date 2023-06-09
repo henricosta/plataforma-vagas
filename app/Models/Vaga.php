@@ -34,11 +34,12 @@ class Vaga extends Model
         $modalidade = $input['modalidade'];
         $data = $input['data'];
         $estado = $input['estado'];
+        $cidadeId = $input['cidade_id'];
 
         $vagas = Vaga::modalidade($modalidade)
             ->data($data)
             ->titulo($busca)
-            ->estado($estado)
+            ->estadoCidade($estado, $cidadeId)
             ->with('empresa')
             ->select('vagas.*', 'cidades.nome as nome_cidade')
             ->paginate(perPage: 10, page: $page);
@@ -93,10 +94,13 @@ class Vaga extends Model
         return $query->where('created_at', '>=', $date);
     }
 
-    public function scopeEstado(Builder $query, $sigla) {
-        if (strlen($sigla) == 2) {
+    public function scopeEstadoCidade(Builder $query, $estado, $cidade_id) {
+        if ($cidade_id > 0) {
             return $query->join('cidades', 'cidades.id', '=','vagas.cidade_id')
-            ->where('cidades.uf', '=', $sigla);
+            ->where('cidades.id', '=', $cidade_id);
+        } elseif (strlen($estado) == 2) {
+            return $query->join('cidades', 'cidades.id', '=','vagas.cidade_id')
+            ->where('cidades.uf', '=', $estado);
         }
 
         return $query->join('cidades', 'cidades.id', 'vagas.cidade_id');

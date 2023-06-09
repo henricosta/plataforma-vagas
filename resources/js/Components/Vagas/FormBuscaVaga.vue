@@ -36,6 +36,7 @@ const estados = [
     {nome: "Sergipe", value: "SE"},
     {nome: "Tocantins", value: "TO"}
 ]
+const cidades = ref([])
 const modalidades = [
     {nome: 'Presencial', value: 1},
     {nome: 'Híbrido', value: 2},
@@ -48,16 +49,28 @@ const datas = [
     {nome: 'Últimos 3 meses', value: 4},
 ]
 
+async function getCidades(sigla) {
+    try {
+        const response = await fetch(route('get.cidades', { sigla }))
+        const data = await response.json()
+        cidades.value = Object.values(data)
+    } catch (err) {
+        console.error(err)
+    }
+}
+
 const form = reactive({
     busca: '',
     modalidade: 0,
     data: 0,
     estado: '0',
+    cidade_id: 0,
     page: 1
 })
 
 const emit = defineEmits(["submit"])
 
+// TODO: Transformar tudo em uma só função
 function updateModalidade(value) {
     form.modalidade = value
     emit("submit", form)
@@ -70,7 +83,14 @@ function updateData(value) {
 
 function updateEstado(value) {
     form.estado = value
+    form.cidade_id = '0'
     emit("submit", form)
+    getCidades(value)
+}
+
+function updateCidade(value) {
+    form.cidade_id = value
+    emit('submit', form)
 }
 
 function submitForm() {
@@ -90,6 +110,7 @@ function submitForm() {
         <!-- Filtros de vaga -->
         <div class="border-b-2 border-t-2 py-4 flex justify-center">
             <SelectInput @change="updateEstado" :selected="form.estado" filter_name="estado" text="Estado" :options="estados"/>
+            <SelectInput v-if="cidades.length > 0"  @change="updateCidade" :selected="form.cidade_id" filter_name="cidade" text="Cidade" :options="cidades"/>
             <SelectInput @change="updateModalidade" :selected="form.modalidade" filter_name="modalidade" text="Modalidade" :options="modalidades"/>
             <SelectInput @change="updateData" :selected="form.data" filter_name="data" text="Data de publicação" :options="datas"/>
         </div>
