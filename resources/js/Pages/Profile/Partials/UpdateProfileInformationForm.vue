@@ -17,7 +17,7 @@ defineProps({
 const user = usePage().props.auth.user;
 
 const form = useForm({
-    name: user.name,
+    nome_completo: user.nome_completo,
     email: user.email,
 });
 </script>
@@ -25,7 +25,7 @@ const form = useForm({
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
+            <h2 class="text-lg font-medium text-gray-900">Informações do perfil</h2>
 
             <p class="mt-1 text-sm text-gray-600">
                 Update your account's profile information and email address.
@@ -40,7 +40,7 @@ const form = useForm({
                     id="name"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.name"
+                    v-model="form.nome_completo"
                     required
                     autofocus
                     autocomplete="name"
