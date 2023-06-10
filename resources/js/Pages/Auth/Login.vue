@@ -85,9 +85,9 @@ const submit = () => {
                     >
                         Forgot your password?
                     </Link>
-                    <PrimaryButton class="ml-4 bg-amber-50 border-2 border-black text-black" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        <a href="/register">Register</a>
-                    </PrimaryButton>
+                    <Link href="/register" class="ml-4 bg-gray-100 px-2 py-1 rounded-md border text-black hover:bg-gray-200 ">
+                        Register
+                    </Link>
                     <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         Log in
                     </PrimaryButton>
