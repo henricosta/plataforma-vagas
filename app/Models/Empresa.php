@@ -18,7 +18,8 @@ class Empresa extends Authenticatable
         'cnpj',
         'cep',
         'telefone',
-        'password'
+        'password',
+        'profile_image'
     ];
     protected $hidden = ['password', 'remember_token'];
 
