@@ -56,16 +56,22 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        if ($request->user()->email === $request->email) {
-            $request->validate(['nome_completo' => 'required|string|max:255']);
-            $request->user()->fill(['nome_completo' => $request->input('nome_completo')]);
-        } else {
-            $request->validate([
-                'nome_completo' => 'required|string|max:255',
-                'email' => 'required|string|unique:users,email|max:255'
-            ]);
-            $request->user()->fill($request->only(['nome_completo', 'email']));
+        $nome_completo = $request->input('nome_completo');
+        $email = $request->input('email');
+        $telefone = $request->input('telefone');
+
+        if ($request->user()->email != $email) {
+            $request->validate(['email' => 'required|string|unique:users,email|max:255']);
+            $request->user()->fill(['email' => $email]);
         }
+
+        if ($request->user()->telefone != $telefone && strlen($telefone) >= 10) {
+            $request->validate(['telefone' => 'string|unique:users,telefone|max:11']);
+            $request->user()->fill(['telefone' => $telefone]);
+        }
+
+        $request->validate(['nome_completo' => 'required|string|min:3|max:255']);
+        $request->user()->fill(['nome_completo' => $nome_completo]);
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;

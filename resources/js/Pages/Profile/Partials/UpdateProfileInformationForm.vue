@@ -19,11 +19,13 @@ const user = usePage().props.auth.user;
 const form = useForm({
     nome_completo: user.nome_completo,
     email: user.email,
+    telefone: user.telefone
 });
 </script>
 
 <template>
     <section>
+        {{ console.log(user) }}
         <header>
             <h2 class="text-lg font-medium text-gray-900">Informações do perfil</h2>
 
@@ -62,6 +64,21 @@ const form = useForm({
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+            
+            <div>
+                <InputLabel for="telefone" value="Telefone" />
+
+                <TextInput
+                    id="telefone"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.telefone"
+                    autofocus
+                    autocomplete="name"
+                />
+
+                <InputError class="mt-2" :message="form.errors.telefone" />
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
