@@ -167,6 +167,7 @@ class EmpresaController extends Controller
         $telefone = $request->input('telefone');
         $cnpj = $request->input('cnpj');
         $cep = $request->input('cep');
+        $descricao = $request->input('descricao');
 
         if ($profileImage) {
             $path = Storage::put('public/profile_images', $profileImage);
@@ -197,8 +198,13 @@ class EmpresaController extends Controller
             $request->user()->fill(['cep' => $cep]);
         }
 
+        
+        $request->validate(['descricao' => 'string|max:3000']);
         $request->validate(['nome_empresa' => 'required|string|min:3|max:255']);
-        $request->user()->fill(['nome_empresa' => $nome_empresa]);
+        $request->user()->fill([
+            'nome_empresa' => $nome_empresa,
+            'descricao' => $descricao
+        ]);
 
         $request->user()->save();
 

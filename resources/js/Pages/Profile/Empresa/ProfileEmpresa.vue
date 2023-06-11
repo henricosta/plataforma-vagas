@@ -35,8 +35,8 @@ const empresa = usePage().props.auth.user
                     </div>
                 </Section>
                 <Section titulo="Sobre">
-                    <p v-if="!empresa.descricao" class="text-gray-600">A empresa ainda não possui uma descrição...</p>
-                    <p v-else class="text-gray-600">{{ empresa.descricao }}</p>
+                    <p v-if="empresa.descricao" class="text-gray-600">{{ empresa.descricao }}</p>
+                    <p v-else class="text-gray-600">A empresa ainda não possui uma descrição...</p>
                 </Section>
                 <Section titulo="Informações">
                     <p><strong>Email:</strong> {{ empresa.email }}</p>
