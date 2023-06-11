@@ -45,7 +45,6 @@ function submit() {
 </script>
 
 <template>
-    {{ console.log(user) }}
     <section>
         <div class="relative inline-flex items-center justify-center w-60 h-60 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
             <img v-if="user.profile_image" :src="user.profile_image" alt="" srcset="">
