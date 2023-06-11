@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Cidade;
 use App\Models\Empresa;
 use App\Models\Vaga;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class EmpresaController extends Controller
@@ -155,9 +158,51 @@ class EmpresaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Empresa $empresa)
+
+    public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        //
+        $profileImage = $request->file('profile_image');
+        $nome_empresa = $request->input('nome_empresa');
+        $email = $request->input('email');
+        $telefone = $request->input('telefone');
+        $cnpj = $request->input('cnpj');
+        $cep = $request->input('cep');
+
+        if ($profileImage) {
+            $path = Storage::put('public/profile_images', $profileImage);
+            try {
+                $request->user()->fill(['profile_image' => Storage::url($path)]);
+            } catch (\Exception $e) {
+                dd($e);
+            }
+        }
+
+        if ($request->user()->email != $email) {
+            $request->validate(['email' => 'required|string|unique:users,email|max:255']);
+            $request->user()->fill(['email' => $email]);
+        }
+
+        if ($request->user()->cnpj != $cnpj) {
+            $request->validate(['cnpj' => 'required|string|unique:users,cnpj|max:14']);
+            $request->user()->fill(['cnpj' => $cnpj]);
+        }
+
+        if ($request->user()->telefone != $telefone && strlen($telefone) >= 10) {
+            $request->validate(['telefone' => 'string|unique:users,telefone|max:11']);
+            $request->user()->fill(['telefone' => $telefone]);
+        }
+
+        if ($request->user()->cep != $cep) {
+            $request->validate(['cep' => 'required|string|max:8']);
+            $request->user()->fill(['cep' => $cep]);
+        }
+
+        $request->validate(['nome_empresa' => 'required|string|min:3|max:255']);
+        $request->user()->fill(['nome_empresa' => $nome_empresa]);
+
+        $request->user()->save();
+
+        return Redirect::route('empresa.edit');
     }
 
     /**

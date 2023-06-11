@@ -42,7 +42,7 @@ function submit() {
     <section>
         <div class="relative inline-flex items-center justify-center w-60 h-60 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
             <img v-if="form.profile_image" :src="profileImageUrl" alt="profile image">
-            <span v-elses class="font-medium text-gray-600 dark:text-gray-300">JL</span>
+            <span v-else class="font-medium text-gray-600 dark:text-gray-300">JL</span>
         </div>
         <form @submit.prevent="submit" class="mt-6 space-y-6">
             <div>
