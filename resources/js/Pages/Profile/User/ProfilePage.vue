@@ -1,5 +1,5 @@
 <script setup>
-import {Head, useForm} from '@inertiajs/vue3';
+import {Head, useForm, usePage} from '@inertiajs/vue3';
 import { ref } from "vue";
 import { Link } from '@inertiajs/vue3';
 import UserLayout from "@/Layouts/UserLayout.vue";
@@ -13,6 +13,8 @@ defineProps({
     telefone: String,
     competencias: Array
 })
+
+const user = usePage().props.auth.user
 
 const competenciaForm = useForm({
     competencia: ''
@@ -48,7 +50,12 @@ function closeModalOutside(event) {
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <Section>
                     <div class="mb-8 relative inline-flex items-center justify-center w-60 h-60 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                        <span class="font-medium text-gray-600 dark:text-gray-300">JL</span>
+                        <img v-if="user.profile_image" :src="user.profile_image" alt="" srcset="">
+                        <svg v-else class="absolute w-full h-full text-gray-400 mt-12" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                clip-rule="evenodd"></path>
+                        </svg>
                     </div>
                     <div>
                         <div class="flex items-center">
