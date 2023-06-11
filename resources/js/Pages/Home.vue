@@ -12,7 +12,7 @@ const props = defineProps({
     previousPageUrl: String,
     totalPages: Number,
     currentPage: Number,
-    auth: String,
+    guard: String,
 })
 const vagas = ref(0)
 function getVagas(formData) {
@@ -35,7 +35,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-    <UserLayout v-if="props.auth == 'web'">
+    <UserLayout v-if="props.guard == 'web'">
         <FormBuscaVaga @submit="getVagas" />
         <LayoutVagas v-if="vagas" :vagas="vagas" :previous-page-url="props.previousPageUrl" :next-page-url="props.nextPageUrl" :total-pages="props.totalPages" :current-page="props.currentPage" />
     </UserLayout>

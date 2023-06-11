@@ -12,9 +12,9 @@ class VagaController extends Controller
 {
     public function __construct(protected Vaga $vagas) {}
 
-    public function busca(Request $request) {   
+    public function busca(Request $request) {
         $input = $request->only(['busca', 'modalidade', 'data', 'page', 'estado', 'cidade_id']);
-        
+
         try {
             $vagas = $this->vagas->busca($input, $input['page']);
 
@@ -36,13 +36,13 @@ class VagaController extends Controller
     {
         $page = $request->input('page');
         $vagas = $this->vagas->listRecente($page);
-        $auth = 'guest';
+        $guard = 'guest';
 
-        if (Auth::guard('web')->check()) $auth = 'web';
-        if (Auth::guard('empresa')->check()) $auth = 'empresa';
+        if (Auth::guard('web')->check()) $guard = 'web';
+        if (Auth::guard('empresa')->check()) $guard = 'empresa';
 
         return Inertia::render('Home', [
-            'auth' => $auth,
+            'guard' => $guard,
             'vagas' => $vagas->items(),
             'nextPageUrl' => $vagas->nextPageUrl(),
             'previousPageUrl' => $vagas->previousPageUrl(),
