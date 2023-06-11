@@ -48,8 +48,12 @@ function submit() {
     {{ console.log(user) }}
     <section>
         <div class="relative inline-flex items-center justify-center w-60 h-60 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-            <img v-if="form.profile_image" :src="profileImageUrl" alt="profile image">
-            <span v-elses class="font-medium text-gray-600 dark:text-gray-300">JL</span>
+            <img v-if="user.profile_image" :src="user.profile_image" alt="" srcset="">
+            <svg v-else class="absolute w-full h-full text-gray-400 mt-12" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                    clip-rule="evenodd"></path>
+            </svg>
         </div>
         <form @submit.prevent="submit" class="mt-6 space-y-6">
             <div>
