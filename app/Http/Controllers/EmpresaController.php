@@ -152,7 +152,7 @@ class EmpresaController extends Controller
      */
     public function edit(Empresa $empresa)
     {
-        return Inertia::render('Profile/EditEmpresa');
+        return Inertia::render('Profile/Empresa/EditEmpresa');
     }
 
     /**
