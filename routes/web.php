@@ -47,6 +47,8 @@ Route::group([
 
     Route::get('create/vaga', [EmpresaController::class, 'createVagaForm'])->name('empresa.create.vaga.form');
     Route::post('create/vaga', [EmpresaController::class, 'createVaga'])->name('empresa.create.vaga');
+
+    Route::post('logout', [EmpresaController::class, 'logout'])->name('empresa.logout');
 });
 
 Route::middleware('auth:web')->group(function () {
