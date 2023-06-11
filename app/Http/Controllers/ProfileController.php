@@ -26,7 +26,7 @@ class ProfileController extends Controller
         $user = $this->user->getUserWithCompetencias(Auth::user()->id);
         $img = Storage::get($user['profile_image']);
 
-        return Inertia::render('Profile/ProfilePage', [
+        return Inertia::render('Profile/User/ProfilePage', [
             'status' => session('status'),
             'id' => $user['id'],
             'nome_completo' => $user['nome_completo'],
@@ -49,7 +49,7 @@ class ProfileController extends Controller
 
     public function edit(Request $request): Response
     {
-        return Inertia::render('Profile/EditUser', [
+        return Inertia::render('Profile/User/EditUser', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);
@@ -126,7 +126,7 @@ class ProfileController extends Controller
 
         $vagaId = $request->input('vaga_id');
         $action = $request->input('action');
-        
+
         if ($action == 'create') {
             if (!Auth::user()->vagas()->wherePivot('vaga_id', $vagaId)->exists()) {
                 Auth::user()->vagas()->attach($vagaId);
@@ -145,5 +145,5 @@ class ProfileController extends Controller
         }
     }
 
-    
+
 }

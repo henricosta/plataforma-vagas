@@ -1,12 +1,12 @@
 <script setup>
-import DeleteUserForm from './Partials/DeleteUserForm.vue';
-import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
+import DeleteUserForm from '../Partials/DeleteUserForm.vue';
+import UpdatePasswordForm from '../Partials/UpdatePasswordForm.vue';
 import { Head } from '@inertiajs/vue3';
 // TODO: Usar empresa layout
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import UpdateEmpresaInformationForm from './Partials/UpdateEmpresaInformationForm.vue';
-import DeleteEmpresaForm from './Partials/DeleteEmpresaForm.vue'
-import UpdateEmpresaPassword from './Partials/UpdateEmpresaPasswordForm.vue'
+import UpdateEmpresaInformationForm from '../Partials/UpdateEmpresaInformationForm.vue';
+import DeleteEmpresaForm from '../Partials/DeleteEmpresaForm.vue'
+import UpdateEmpresaPassword from '../Partials/UpdateEmpresaPasswordForm.vue'
 
 </script>
 

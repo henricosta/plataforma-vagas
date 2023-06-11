@@ -18,11 +18,11 @@ use Inertia\Inertia;
 class EmpresaController extends Controller
 {
     public function showLogin() {
-        return Inertia::render('Auth/LoginEmpresa');
+        return Inertia::render('Auth/Empresa/LoginEmpresa');
     }
 
     public function showRegister() {
-        return Inertia::render('Auth/RegisterEmpresa');
+        return Inertia::render('Auth/Empresa/RegisterEmpresa');
     }
 
     public function login(Request $req) {
@@ -77,7 +77,7 @@ class EmpresaController extends Controller
 
     public function showProfile() {
         $empresa = Empresa::with('vagas')->where('id', Auth::user()->getAuthIdentifier())->first();
-        return Inertia::render('Profile/ProfileEmpresa', [
+        return Inertia::render('Profile/Empresa/ProfileEmpresa', [
             'nome' => $empresa['nome'],
             'vagas' => $empresa['vagas']
         ]);
