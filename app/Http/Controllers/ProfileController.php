@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -23,13 +24,16 @@ class ProfileController extends Controller
 
     public function show(Request $request): Response {
         $user = $this->user->getUserWithCompetencias(Auth::user()->id);
+        $img = Storage::get($user['profile_image']);
+
         return Inertia::render('Profile/ProfilePage', [
             'status' => session('status'),
             'id' => $user['id'],
             'nome_completo' => $user['nome_completo'],
             'email' => $user['email'],
             'telefone' => $user['telefone'],
-            'competencias' => $user['competencias']
+            'competencias' => $user['competencias'],
+            'profile_image' => Storage::get($user['profile_image'])
         ]);
     }
 
@@ -59,6 +63,16 @@ class ProfileController extends Controller
         $nome_completo = $request->input('nome_completo');
         $email = $request->input('email');
         $telefone = $request->input('telefone');
+        $profileImage = $request->file('profile_image');
+
+        if ($profileImage) {
+            $path = Storage::put('public/profile_images', $profileImage);
+            try {
+                $request->user()->fill(['profile_image' => Storage::url($path)]);
+            } catch (\Exception $e) {
+                dd($e);
+            }
+        }
 
         if ($request->user()->email != $email) {
             $request->validate(['email' => 'required|string|unique:users,email|max:255']);
@@ -130,4 +144,6 @@ class ProfileController extends Controller
             ]);
         }
     }
+
+    
 }
