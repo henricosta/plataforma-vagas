@@ -110,4 +110,8 @@ class Vaga extends Model
     public function candidatos() {
         return $this->belongsToMany(User::class, 'candidaturas');
     }
+
+    public function cidade() {
+        return $this->belongsTo(Cidade::class, 'cidade_id');
+    }
 }
