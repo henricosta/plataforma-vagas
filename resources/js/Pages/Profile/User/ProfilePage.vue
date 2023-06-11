@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
 import {reactive, ref} from "vue";
 import { Link } from '@inertiajs/vue3';
+import UserLayout from "@/Layouts/UserLayout.vue";
 
 // TODO: Criar componente para modal
 defineProps({
@@ -42,11 +43,7 @@ function closeModalOutside(event) {
 <template>
     <Head title="Profile" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Perfil</h2>
-        </template>
-
+    <UserLayout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
@@ -78,7 +75,7 @@ function closeModalOutside(event) {
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </UserLayout>
     <div v-show="isModalOpen" @click="closeModalOutside">
         <div id="modal-adicionar-competencia" class="flex justify-center items-center fixed z-10 left-0 top-0 w-full h-full bg-gray-900 bg-opacity-50">
             <div id="modal-adicionar-competencia-content" class="bg-white w-96 inline-block align-middle rounded-2xl shadow-2xl">

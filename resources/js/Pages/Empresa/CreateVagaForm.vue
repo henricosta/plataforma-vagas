@@ -7,6 +7,7 @@ import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import {Head, router, useForm, usePage} from '@inertiajs/vue3';
 import { onMounted, reactive, ref, watch, watchEffect } from 'vue';
+import EmpresaLayout from "@/Layouts/EmpresaLayout.vue";
 
 const props = defineProps({
     success: {
@@ -103,7 +104,7 @@ function submit() {
 
 <template>
     <Head title="Profile" />
-    <AuthenticatedLayout>
+    <EmpresaLayout>
         <div class="py-12">
             <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <Section titulo="Nova vaga">
@@ -177,7 +178,7 @@ function submit() {
         <div v-if="isSuccessMessagingShowing" id="mensagem-sucesso" class="top-2 p-6 border border-indigo-500 rounded-lg bg-white">
             <h1>Vaga adicionada com sucesso</h1>
         </div>
-    </AuthenticatedLayout>
+    </EmpresaLayout>
 </template>
 
 <style>

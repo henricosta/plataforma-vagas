@@ -5,6 +5,7 @@ import Section from '@/Components/Section.vue';
 import { Link, usePage } from '@inertiajs/vue3'
 import {Head, useForm} from '@inertiajs/vue3';
 import {reactive, ref} from "vue";
+import EmpresaLayout from "@/Layouts/EmpresaLayout.vue";
 
 defineProps({
     nome: String,
@@ -18,10 +19,7 @@ const empresa = usePage().props.auth.user
 <template>
     <Head title="Profile" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Perfil</h2>
-        </template>
+    <EmpresaLayout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <ProfileSectionEmpresa :nome="empresa.nome_empresa"></ProfileSectionEmpresa>
@@ -41,7 +39,7 @@ const empresa = usePage().props.auth.user
                 </Section>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </EmpresaLayout>
 </template>
 
 <style>

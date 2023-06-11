@@ -92,7 +92,7 @@ function submit() {
 
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
-            
+
             <div>
                 <InputLabel for="telefone" value="Telefone" />
 
