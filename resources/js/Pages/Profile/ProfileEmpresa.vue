@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ProfileSectionEmpresa from '@/Components/Profile/ProfileSectionEmpresa.vue';
 import Section from '@/Components/Section.vue';
-import { Link } from '@inertiajs/vue3'
+import { Link, usePage } from '@inertiajs/vue3'
 import {Head, useForm} from '@inertiajs/vue3';
 import {reactive, ref} from "vue";
 
@@ -10,6 +10,8 @@ defineProps({
     nome: String,
     vagas: Array
 })
+
+const empresa = usePage().props.auth.user
 
 </script>
 
@@ -22,9 +24,10 @@ defineProps({
         </template>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                <ProfileSectionEmpresa :nome="nome"></ProfileSectionEmpresa>
+                <ProfileSectionEmpresa :nome="empresa.nome_empresa"></ProfileSectionEmpresa>
                 <Section titulo="Sobre">
-                    <p class="text-gray-600">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur quaerat fuga quia est saepe, cum expedita aperiam exercitationem obcaecati inventore provident? Veritatis, sapiente saepe. Esse adipisci nisi aliquam nostrum dignissimos!</p>
+                    <p v-if="!empresa.descricao" class="text-gray-600">A empresa ainda não possui uma descrição...</p>
+                    <p v-else class="text-gray-600">{{ empresa.descricao }}</p>
                 </Section>
                 <Section>
                     <h4 class="inline-block mb-2 text-lg font-semibold text-gray-900 dark:text-white">Vagas abertas</h4>
