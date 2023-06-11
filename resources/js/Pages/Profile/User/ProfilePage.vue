@@ -7,10 +7,6 @@ import Section from '@/Components/Section.vue';
 
 // TODO: Criar componente para modal
 defineProps({
-    id: Number,
-    nome_completo: String,
-    email: String,
-    telefone: String,
     competencias: Array
 })
 
@@ -59,12 +55,12 @@ function closeModalOutside(event) {
                     </div>
                     <div>
                         <div class="flex items-center">
-                            <div class="mb-3 text-4xl font-extrabold dark:text-white" >{{nome_completo}}</div>
+                            <div class="mb-3 text-4xl font-extrabold dark:text-white" >{{ user.nome_completo }}</div>
                             <Link :href="route('profile.edit')" class="ml-4 mb-2 py-2 px-3 rounded-md border bg-gray-200 shadow-sm text-sm hover:bg-gray-400">Editar perfil</Link>
                         </div>
                         <ul class="max-w-md space-y-1 text-gray-500 list-none list-inside dark:text-gray-400">
-                            <li>Email: {{email}}</li>
-                            <li v-if="telefone" >Telefone: {{telefone}}</li>
+                            <li>Email: {{ user.email }}</li>
+                            <li v-if="user.telefone" >Telefone: {{ user.telefone }}</li>
                         </ul>
                     </div>
                 </Section>
@@ -75,13 +71,13 @@ function closeModalOutside(event) {
                     </div>
                     <div>
                         <ul v-if="competencias.length > 0" class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
-                            <li v-for="competencia in competencias" style="text-transform: capitalize">{{competencia.competencia}}</li>
+                            <li v-for="c in competencias" style="text-transform: capitalize">{{c.competencia}}</li>
                         </ul>
                         <div v-else class="text-gray-500">Você ainda não adicionou nenhuma competência</div>
                     </div>
                 </Section>
                 <Section>
-                    <Link :href="route('logout')" method="post">
+                    <Link :href="route('logout')" method="post" as="button">
                         <button class="bg-gray-800 rounded-md text-white px-3 py-2">Logout</button>
                     </Link>
                 </Section>

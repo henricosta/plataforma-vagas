@@ -24,16 +24,9 @@ class ProfileController extends Controller
 
     public function show(Request $request): Response {
         $user = $this->user->getUserWithCompetencias(Auth::user()->id);
-        $img = Storage::get($user['profile_image']);
 
         return Inertia::render('Profile/User/ProfilePage', [
-            'status' => session('status'),
-            'id' => $user['id'],
-            'nome_completo' => $user['nome_completo'],
-            'email' => $user['email'],
-            'telefone' => $user['telefone'],
             'competencias' => $user['competencias'],
-            'profile_image' => Storage::get($user['profile_image'])
         ]);
     }
 
