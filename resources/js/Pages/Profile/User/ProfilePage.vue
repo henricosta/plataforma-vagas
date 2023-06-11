@@ -1,9 +1,9 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
-import {reactive, ref} from "vue";
+import { ref } from "vue";
 import { Link } from '@inertiajs/vue3';
 import UserLayout from "@/Layouts/UserLayout.vue";
+import Section from '@/Components/Section.vue';
 
 // TODO: Criar componente para modal
 defineProps({
@@ -46,7 +46,7 @@ function closeModalOutside(event) {
     <UserLayout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <Section>
                     <div class="mb-8 relative inline-flex items-center justify-center w-60 h-60 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                         <span class="font-medium text-gray-600 dark:text-gray-300">JL</span>
                     </div>
@@ -60,8 +60,8 @@ function closeModalOutside(event) {
                             <li v-if="telefone" >Telefone: {{telefone}}</li>
                         </ul>
                     </div>
-                </div>
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                </Section>
+                <Section>
                     <div>
                         <h4 class="inline-block mb-2 text-lg font-semibold text-gray-900 dark:text-white">Competências</h4>
                         <button @click="openModal" id="adicionar-competencia" type="button" class="ml-3 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Adicionar competência</button>
@@ -72,7 +72,12 @@ function closeModalOutside(event) {
                         </ul>
                         <div v-else class="text-gray-500">Você ainda não adicionou nenhuma competência</div>
                     </div>
-                </div>
+                </Section>
+                <Section>
+                    <Link :href="route('logout')" method="post">
+                        <button class="bg-gray-800 rounded-md text-white px-3 py-2">Logout</button>
+                    </Link>
+                </Section>
             </div>
         </div>
     </UserLayout>
