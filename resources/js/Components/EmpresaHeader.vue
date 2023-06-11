@@ -26,7 +26,7 @@ const props = defineProps({
                 <!-- Botões da direita -->
                 <div class="flex items-center mr-8">
                     <div>
-                        <Link href="/profile">
+                        <Link href="/empresa/profile">
                             <div v-if="props.profile_image" class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                                 <img :src="props.profile_image" alt="profile image">
                             </div>
