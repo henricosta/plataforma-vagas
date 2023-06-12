@@ -110,11 +110,6 @@ class EmpresaController extends Controller
 
     }
 
-    public function getCidades(Request $request) {
-        $sigla = $request->input('sigla');
-        $cidades = Cidade::query()->where('uf', $sigla)->get();
-        return response()->json($cidades);
-    }
     /**
      * Display a listing of the resource.
      */

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VagaController;
+use App\Models\Cidade;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\Auth\PasswordController;
@@ -19,7 +20,7 @@ use App\Http\Controllers\Auth\PasswordController;
 Route::get('/', [VagaController::class, 'index']);
 Route::get('/vagas/busca', [VagaController::class, 'busca']);
 Route::get('/vaga/{id}', [VagaController::class, 'getVaga'])->name('get.vaga');
-Route::get('cidades', [EmpresaController::class, 'getCidades'])->name('get.cidades');
+Route::get('cidades', [Cidade::class, 'getCidades'])->name('get.cidades');
 Route::post('/candidatar', [ProfileController::class, 'candidatar'])->name('candidatar');
 Route::get('/empresa/{id}/vagas', [VagaController::class, 'getByEmpresa'])->name('empresa.vagas');
 
