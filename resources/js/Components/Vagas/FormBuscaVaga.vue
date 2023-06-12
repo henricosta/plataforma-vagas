@@ -116,7 +116,7 @@ function resetFilters() {
         </div>
         <!-- Filtros de vaga -->
         <div class="border-t shadow-sm bg-gray-50 py-4 flex justify-center">
-            <button @click="resetFilters" class="rounded-full border border-gray-500 hover:bg-gray-900 hover:text-white px-5 mr-5" >Redefinir filtros</button>
+            <button @click="resetFilters" class="rounded-full border border-gray-800 hover:bg-gray-700 text-white bg-gray-800 px-5 mr-5" >Redefinir filtros</button>
             <SelectInput @change="updateEstado" :selected="form.estado" filter_name="estado" text="Estado" :options="estados"/>
             <SelectInput v-if="cidades.length > 0"  @change="updateCidade" :selected="form.cidade_id" filter_name="cidade" text="Cidade" :options="cidades"/>
             <SelectInput @change="updateModalidade" :selected="form.modalidade" filter_name="modalidade" text="Modalidade" :options="modalidades"/>
