@@ -60,7 +60,12 @@ onMounted(() => {
                     </Section>
                 </div>
                 <Section class="mr-8">
-                    <h1 class="text-2xl">Vagas publicadas</h1>
+                    <div class="flex items-center">
+                        <h1 class="text-2xl">Vagas publicadas</h1>
+                        <Link class="ml-3" :href="route('empresa.create.vaga.form')">
+                            <button class="shadow-sm rounded-lg border px-3 py-2 bg-gray-800 text-white hover:bg-gray-700" >Adicionar vaga</button>
+                        </Link>
+                    </div>
                     <hr class="mt-2 mb-3">
                     <SmallVagaCard v-for="v in vagas"
                         :id="v.id"

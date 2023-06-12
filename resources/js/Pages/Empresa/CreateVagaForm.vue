@@ -1,12 +1,11 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Section from '@/Components/Section.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import {Head, router, useForm, usePage} from '@inertiajs/vue3';
-import { onMounted, reactive, ref, watch, watchEffect } from 'vue';
+import {Head, useForm } from '@inertiajs/vue3';
+import { onMounted, reactive, ref, watch } from 'vue';
 import EmpresaLayout from "@/Layouts/EmpresaLayout.vue";
 
 const props = defineProps({
