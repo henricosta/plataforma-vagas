@@ -29,7 +29,7 @@ class EmpresaController extends Controller
         $credentials = $req->only('email', 'password');
         if (Auth::guard('empresa')->attempt($credentials)) {
             $req->session()->regenerate();
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->intended(route('empresa.profile'));
         } else {
             return redirect()->route('empresa.login')->withErrors([
                 'email' => 'Credenciais inválidas'
