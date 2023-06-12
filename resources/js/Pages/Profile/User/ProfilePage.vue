@@ -6,7 +6,6 @@ import UserLayout from "@/Layouts/UserLayout.vue";
 import Section from '@/Components/Section.vue';
 import SmallVagaCard from '@/Components/SmallVagaCard.vue'
 
-// TODO: Criar componente para modal
 const props = defineProps({
     competencias: Array,
     vagas: Array

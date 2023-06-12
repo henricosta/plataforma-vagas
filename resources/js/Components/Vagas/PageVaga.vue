@@ -14,7 +14,6 @@ const props = defineProps({
 
 const candidatado = ref(0)
 
-// TODO: Transformar tudo em uma função só
 function removerCandidatura() {
     axios.post('/candidatar', { vaga_id: props.vaga.id, action: 'remove' })
         .then(res => {

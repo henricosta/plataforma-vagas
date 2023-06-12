@@ -70,7 +70,6 @@ const form = reactive({
 
 const emit = defineEmits(["submit"])
 
-// TODO: Transformar tudo em uma só função
 function updateModalidade(value) {
     form.modalidade = value
     emit("submit", form)

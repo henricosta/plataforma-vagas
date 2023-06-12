@@ -16,7 +16,6 @@ function getPageLink(i) {
     return props.nextPageUrl.slice(0, -1) + String(i)
 }
 
-// TODO: adicionar svg icones paginacao
 </script>
 
 <template>

@@ -40,7 +40,6 @@ function handleScrolling() {
 </script>
 
 <template>
-    <!--    TODO: Adicionar página de "nenhuma vaga encontrada"-->
     <div v-if="props.vagas.length" class="flex justify-center">
         <ListVagas :vagas="props.vagas" :update-vaga-focus="updateVagaOnFocus" :next-page-url="props.nextPageUrl"
             :previous-page-url="props.previousPageUrl" :total-pages="props.totalPages" :current-page="props.currentPage"/>

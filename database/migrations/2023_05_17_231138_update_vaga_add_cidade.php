@@ -11,7 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // TODO: criar model de cidades e montar relacionamento
         Schema::table('vagas', function(Blueprint $table) {
             $table->unsignedInteger('cidade_id');
         });

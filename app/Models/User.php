@@ -1,5 +1,4 @@
 <?php
-// TODO: Desacoplar user das competências
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -59,7 +58,6 @@ class User extends Authenticatable
 
     private function attachUniqueCompetencias($competencia_id, $user_id) {
         $user = User::find($user_id);
-        // TODO: syncWithoutDetaching() é muito lenta
         $user->competencias()->syncWithoutDetaching([$competencia_id]);
     }
 
