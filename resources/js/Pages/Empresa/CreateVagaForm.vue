@@ -56,7 +56,7 @@ const isSuccessMessagingShowing = ref(false)
 
 async function getCidades(sigla) {
     try {
-        const response = await fetch(route('get.cidades', { sigla }))
+        const response = await fetch(route(`get.cidades`, { uf: sigla }))
         const data = await response.json()
         state.cidades = Object.values(data)
     } catch (err) {

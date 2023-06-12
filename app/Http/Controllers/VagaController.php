@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vaga;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -95,6 +96,11 @@ class VagaController extends Controller
     public function edit($id)
     {
         $vaga = Vaga::with('cidade', 'candidatos')->find($id);
+
+        if (Auth::user()->getAuthIdentifier() != $vaga['empresa_id']) {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
+
         return Inertia::render('Empresa/EditVaga', [
             'vaga' => $vaga
         ]);
@@ -103,9 +109,36 @@ class VagaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Vaga $vaga)
+    public function update(Request $request)
     {
-        //
+
+        $id = $request->input('id');
+
+        $vaga = Vaga::find($id);
+
+        if (Auth::user()->getAuthIdentifier() != $vaga->empresa_id) {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
+
+        $request->validate([
+            'titulo' => 'required|string|max:255',
+            'descricao' => 'required|string|max:3000',
+            'num_vagas' => 'required|numeric|min:1',
+            'modalidade' => 'required|numeric|min:1|max:3',
+            'cidade_id' => 'required|numeric',
+        ]);
+
+        $vaga->fill([
+            'titulo' => $request->input('titulo'),
+            'descricao' => $request->input('descricao'),
+            'num_vagas' => $request->input('num_vagas'),
+            'modalidade' => $request->input('modalidade'),
+            'cidade_id' => $request->input('cidade_id')
+        ]);
+
+        $vaga->save();
+
+        return Redirect::route('vaga.edit', ['id' => $id]);
     }
 
     /**
