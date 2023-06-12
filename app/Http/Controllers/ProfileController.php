@@ -141,5 +141,11 @@ class ProfileController extends Controller
         }
     }
 
+    public function getUser($id) {
+        $user = $this->user->getUserWithCompetencias($id);
 
+        return Inertia::render('User', [
+            'user' => $user
+        ]);
+    }
 }

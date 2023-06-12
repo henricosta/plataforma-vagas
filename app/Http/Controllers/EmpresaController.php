@@ -231,4 +231,12 @@ class EmpresaController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function getEmpresa($id) {
+        $empresa = Empresa::with('vagas.cidade')->find($id);
+
+        return Inertia::render('Empresa', [
+            'empresa' => $empresa
+        ]);
+    }
 }
