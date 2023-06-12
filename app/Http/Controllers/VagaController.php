@@ -51,6 +51,12 @@ class VagaController extends Controller
         ]);
     }
 
+    public function getByEmpresa($empresaId) {
+        $vagas = Vaga::with('cidade')->where('empresa_id', '=', $empresaId)->get();
+
+        return json_encode($vagas);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
