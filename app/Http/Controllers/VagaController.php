@@ -144,8 +144,15 @@ class VagaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Vaga $vaga)
+    public function destroy($id)
     {
-        //
+        $vaga = Vaga::find($id);
+        if (Auth::user()->getAuthIdentifier() != $vaga->empresa_id) {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
+
+        $vaga->delete();
+
+        return Redirect::route('empresa.profile');
     }
 }

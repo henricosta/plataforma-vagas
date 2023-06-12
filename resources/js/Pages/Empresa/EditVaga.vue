@@ -145,13 +145,17 @@ function getCidades() {
 
                                 <InputError class="mt-2" :message="form.errors.num_vagas" />
                             </div>
-
-                            <div class="flex items-center gap-4">
-                                <PrimaryButton :disabled="form.processing">Atualizar vaga</PrimaryButton>
-                
-                                <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
-                                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Salvo.</p>
-                                </Transition>
+                            <div class="flex justify-between">
+                                <div class="flex items-center gap-4">
+                                    <PrimaryButton :disabled="form.processing">Atualizar vaga</PrimaryButton>
+                    
+                                    <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
+                                        <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Salvo.</p>
+                                    </Transition>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <Link :href="route('vaga.delete', { id: props.vaga.id })" method="post" as="button"><PrimaryButton class="bg-red-600">Deletar vaga</PrimaryButton></Link>
+                                </div>
                             </div>
                         </form>
                     </Section>

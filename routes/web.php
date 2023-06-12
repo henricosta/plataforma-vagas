@@ -54,6 +54,7 @@ Route::group([
 
     Route::get('profile/vaga/{id}', [VagaController::class, 'edit'])->name('vaga.edit');
     Route::post('profile/vaga/{id}', [VagaController::class, 'update'])->name('vaga.update');
+    Route::post('profile/vaga/{id}/delete', [VagaController::class, 'destroy'])->name('vaga.delete');
 
     Route::post('logout', [EmpresaController::class, 'logout'])->name('empresa.logout');
 });
