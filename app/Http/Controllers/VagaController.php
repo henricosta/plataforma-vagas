@@ -92,9 +92,12 @@ class VagaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Vaga $vaga)
+    public function edit($id)
     {
-        //
+        $vaga = Vaga::with('cidade', 'candidatos')->find($id);
+        return Inertia::render('Empresa/EditVaga', [
+            'vaga' => $vaga
+        ]);
     }
 
     /**
