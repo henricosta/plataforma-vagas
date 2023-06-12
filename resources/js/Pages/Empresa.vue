@@ -44,6 +44,7 @@ const props = defineProps({
                     <h1 class="text-2xl">Vagas publicadas</h1>
                     <hr class="mt-2 mb-3">
                     <SmallVagaCard v-if="props.empresa.vagas.length > 0" v-for="v in props.empresa.vagas"
+                        :id="v.id"
                         :titulo="v.titulo"
                         :descricao="v.descricao"
                         :cidade="v.cidade.nome"

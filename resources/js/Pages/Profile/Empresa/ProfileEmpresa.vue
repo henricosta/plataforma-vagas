@@ -14,7 +14,6 @@ onMounted(() => {
     axios.get(route('empresa.vagas', { id: empresa.id }))
     .then(res => {
         vagas.value = res.data
-        console.log(vagas.value)
     }).catch(err => {
         console.log(err)
     })
@@ -64,6 +63,7 @@ onMounted(() => {
                     <h1 class="text-2xl">Vagas publicadas</h1>
                     <hr class="mt-2 mb-3">
                     <SmallVagaCard v-for="v in vagas"
+                        :id="v.id"
                         :titulo="v.titulo"
                         :descricao="v.descricao"
                         :cidade="v.cidade.nome"
