@@ -21,7 +21,7 @@ Route::get('/vagas/busca', [VagaController::class, 'busca']);
 Route::get('cidades', [EmpresaController::class, 'getCidades'])->name('get.cidades');
 Route::post('/candidatar', [ProfileController::class, 'candidatar'])->name('candidatar');
 
-Route::get('/user{id}', [ProfileController::class, 'getUser'])->name('get.user');
+Route::get('/users/{id}', [ProfileController::class, 'getUser'])->name('get.user');
 Route::get('/empresas/{id}', [EmpresaController::class, 'getEmpresa'])->name('get.empresa');
 
 Route::group([
