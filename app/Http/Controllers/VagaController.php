@@ -57,6 +57,14 @@ class VagaController extends Controller
         return json_encode($vagas);
     }
 
+    public function getVaga($id) {
+        $vaga = Vaga::with('empresa', 'cidade')->find($id);
+
+        return Inertia::render('Vaga', [
+            'vaga' => $vaga
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
