@@ -14,7 +14,7 @@ const props = defineProps({
                 <div class="flex">
                     <!-- Logo -->
                     <div class="flex shrink-0 items-center mx-10">
-                        <Link href="/" class="text-gray-900">
+                        <Link :href="route('empresa.list.vagas')" class="text-gray-900">
                         HOME
                         </Link>
                     </div>
