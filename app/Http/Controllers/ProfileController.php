@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Competencia;
+use App\Models\Formacao;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -24,12 +25,16 @@ class ProfileController extends Controller
 
     public function show(Request $request): Response {
         $user = $request->user();
+
         $competencias = $user->competencias;
+        $formacoes = $user->formacoes;
+
         $vagas = $user->vagas()->with('cidade', 'empresa')->get();
 
         return Inertia::render('Profile/User/ProfilePage', [
             'competencias' => $competencias,
-            'vagas' => $vagas
+            'vagas' => $vagas,
+            'formacoes' => $formacoes
         ]);
     }
 
@@ -37,10 +42,22 @@ class ProfileController extends Controller
         $competencia = $request->input('competencia');
         $userId = Auth::user()->id;
         $this->user->addCompetencia($competencia, $userId);
-        return Inertia::render('Profile/ProfilePage', [
-            'status' => session('status'),
-            'user' => Auth::user()
+
+        return Redirect::route('profile.show');
+    }
+
+    public function addFormacao(Request $request) {
+        Formacao::create([
+            'user_id' => $request->user()->getAuthIdentifier(),
+            'instituicao' => $request->input('instituicao'),
+            'diploma' => $request->input('diploma'),
+            'area' => $request->input('area'),
+            'inicio' => $request->input('inicio'),
+            'termino' => $request->input('termino'),
+            'descricao' => $request->input('descricao'),
         ]);
+
+        return Redirect::route('profile.show');
     }
 
     public function edit(Request $request): Response
