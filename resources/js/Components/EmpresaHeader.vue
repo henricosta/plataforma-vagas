@@ -20,7 +20,7 @@ const props = defineProps({
                     </div>
                     <!-- Navigation Links -->
                     <div class="flex items-center">
-                        <Link href="/" class="px-2">Vagas abertas</Link>
+                        <Link :href="route('empresa.list.vagas')" class="px-2">Vagas abertas</Link>
                     </div>
                 </div>
                 <!-- Botões da direita -->

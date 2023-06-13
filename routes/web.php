@@ -42,6 +42,8 @@ Route::group([
     'prefix' => 'empresa',
     'middleware' => ['auth:empresa']
 ], function() {
+    Route::get('vagas/list', [VagaController::class, 'listEmpresaVagas'])->name('empresa.list.vagas');
+
     Route::get('profile', [EmpresaController::class, 'showProfile'])->name('empresa.profile');
 
     Route::get('profile/edit', [EmpresaController::class, 'edit'])->name('empresa.edit');
