@@ -60,9 +60,16 @@ class VagaController extends Controller
 
     public function getVaga($id) {
         $vaga = Vaga::with('empresa', 'cidade')->find($id);
+        $guard = 'guest';
+        if (Auth::guard('web')->check()) {
+            $guard = 'web';
+        } elseif (Auth::guard('empresa')->check()) {
+            $guard = 'empresa';
+        }
 
         return Inertia::render('Vaga', [
-            'vaga' => $vaga
+            'vaga' => $vaga,
+            'guard' => $guard
         ]);
     }
 
