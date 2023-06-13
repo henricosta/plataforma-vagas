@@ -60,6 +60,40 @@ class ProfileController extends Controller
         return Redirect::route('profile.show');
     }
 
+    public function editFormacao(Request $request) {
+        $formacao = Formacao::find($request->input('id'));
+
+        try {
+            $request->validate([
+                'instituicao' => 'required|string|max:255',
+                'diploma' => 'required|string|max:255',
+                'area' => 'required|string|max:255',
+                'inicio' => 'required|date',
+                'termino' => 'date',
+                'descricao' => 'required|string|max:255',
+            ]);
+        } catch(\Exception $e) {
+            dd($e);
+        }
+
+        try {
+            $formacao->fill([
+                'instituicao' => $request->input('instituicao'),
+                'diploma' => $request->input('diploma'),
+                'area' => $request->input('area'),
+                'inicio' => $request->input('inicio'),
+                'termino' => $request->input('termino') || '',
+                'descricao' => $request->input('descricao'),
+            ]);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+
+        $formacao->save();
+
+        return Redirect::route('profile.show');
+    }
+
     public function edit(Request $request): Response
     {
         return Inertia::render('Profile/User/EditUser', [

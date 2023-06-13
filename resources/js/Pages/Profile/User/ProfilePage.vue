@@ -68,8 +68,14 @@ const submitCompetencia = () => {
 };
 const submitFormacao = () => {
     formacaoModal.value = false
-    formacaoForm.post(route('formacao.create'));
+    console.log(deleteButton.value)
+    if(deleteButton.value) {
+        formacaoForm.post(route('formacao.edit'));
+    } else {
+        formacaoForm.post(route('formacao.create'));
+    }
 }
+
 </script>
 
 <template>

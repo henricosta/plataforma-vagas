@@ -64,6 +64,7 @@ Route::group([
 Route::middleware('auth:web')->group(function () {
     Route::post('/profile/competencia', [ProfileController::class, 'addCompetencia'])->name('competencia.create');
     Route::post('/profile/formacao', [ProfileController::class, 'addFormacao'])->name('formacao.create');
+    Route::post('/profile/formacao/edit', [ProfileController::class, 'editFormacao'])->name('formacao.edit');
 
     Route::delete('/profile/competencia', [ProfileController::class, 'deleteCompetencia'])->name('competencia.delete');
     Route::delete('/profile/formacao', [ProfileController::class, 'deleteFormacao'])->name('formacao.delete');
