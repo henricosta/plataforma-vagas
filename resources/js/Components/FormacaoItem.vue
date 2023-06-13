@@ -6,7 +6,10 @@ const props = defineProps({
 
 <template>
     <hr>
-    <h1 class="mt-2 text-xl">{{ formacao.instituicao }}</h1>
+    <div class="flex items-center justify-between mt-2">
+        <h1 class="text-xl">{{ formacao.instituicao }}</h1>
+        <slot></slot>
+    </div>
     <div class="flex justify-between items-center">
         <div class="flex">
             <p class="text-gray-700">{{ formacao.diploma }} -</p>
@@ -18,5 +21,5 @@ const props = defineProps({
             <div>Término {{ formacao.termino }}</div>
         </div>
     </div>
-    <div class="mb-2">{{ formacao.descricao }}</div>
+    <div class="mb-2 mt-2 text-gray-700">{{ formacao.descricao }}</div>
 </template>

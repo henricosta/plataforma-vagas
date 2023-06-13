@@ -165,4 +165,20 @@ class ProfileController extends Controller
             'user' => $user
         ]);
     }
+
+    function deleteCompetencia(Request $request) {
+        $user = User::find($request->user()->getAuthIdentifier());
+        $user->competencias()->detach($request->input('id'));
+
+        Redirect::route('profile.show');
+    }
+
+    function deleteFormacao(Request $request) {
+        $f = Formacao::find($request->input('id'));
+        if($f) {
+            $f->delete();
+        }
+
+        Redirect::route('profile.show');
+    }
 }
