@@ -10,7 +10,7 @@
                     <slot name="esquerda"></slot>
                 </div>
                 <!-- Coluna da direita -->
-                <div class="mr-8 w-96">
+                <div class="mr-8">
                     <slot name="direita"></slot>
                 </div>
             </div>
