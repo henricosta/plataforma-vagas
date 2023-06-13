@@ -21,7 +21,6 @@ const props = defineProps({
                     <!-- Navigation Links -->
                     <div class="flex items-center">
                         <Link href="/" class="px-2">Buscar vagas</Link>
-                        <Link href="/profile/vagas" class="px-2">Minhas vagas</Link>
                     </div>
                 </div>
                 <!-- Botões da direita -->
