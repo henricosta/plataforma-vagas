@@ -10,7 +10,7 @@ class Formacao extends Model
     use HasFactory;
 
     protected $table = 'formacao';
-    protected $fillable = ['instituicao', 'diploma', 'area', 'inicio', 'termino', 'descricao'];
+    protected $fillable = ['user_id', 'instituicao', 'diploma', 'area', 'inicio', 'termino', 'descricao'];
     public $timestamps = false;
 
     public function user() {
