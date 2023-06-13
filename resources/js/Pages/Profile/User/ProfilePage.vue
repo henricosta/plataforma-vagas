@@ -5,6 +5,7 @@ import { Link } from '@inertiajs/vue3';
 import UserLayout from "@/Layouts/UserLayout.vue";
 import Section from '@/Components/Section.vue';
 import SmallVagaCard from '@/Components/SmallVagaCard.vue'
+import RightColumn from '@/Components/RightColumn.vue';
 
 const props = defineProps({
     competencias: Array,
@@ -86,17 +87,20 @@ function closeModalOutside(event) {
                     </Section>
                 </div>
                 <!-- Lista de vagas -->
-                <Section class="mr-8">
-                    <h1 class="text-2xl">Minhas vagas</h1>
-                    <hr class="mt-2 mb-3">
-                    <SmallVagaCard v-if="props.vagas.length > 0" v-for="vaga in vagas"
-                        :titulo="vaga.titulo"
-                        :descricao="vaga.descricao"
-                        :nome_empresa="vaga.empresa.nome_empresa"
-                        :cidade="vaga.cidade.nome"
-                        :modalidade="vaga.modalidade"
-                    />
-                </Section>
+                <RightColumn class="mr-8">
+                    <div>
+                        <h1 class="text-2xl">Minhas vagas</h1>
+                        <hr class="mt-2 mb-3">
+                        <SmallVagaCard v-if="props.vagas.length > 0" v-for="vaga in vagas"
+                            :id="vaga.id"
+                            :titulo="vaga.titulo"
+                            :descricao="vaga.descricao"
+                            :nome_empresa="vaga.empresa.nome_empresa"
+                            :cidade="vaga.cidade.nome"
+                            :modalidade="vaga.modalidade"
+                        />
+                    </div>
+                </RightColumn>
             </div>
         </div>
     </UserLayout>

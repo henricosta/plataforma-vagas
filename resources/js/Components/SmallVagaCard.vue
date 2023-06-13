@@ -34,7 +34,7 @@ function truncate(str, maximum_length) {
 
 <template>
     <Link :href="route('get.vaga', props.id)">
-        <div class="w-96 mb-3 border rounded-md shadow-sm p-4 cursor-pointer hover:bg-gray-50">
+        <div class="mb-3 border rounded-md shadow-sm p-4 cursor-pointer hover:bg-gray-50">
             <h1 class="text-lg"><strong>{{ truncate(props.titulo, 40) }}</strong></h1>
             <p class="text-sm text-gray-600">{{ props.nome_empresa ? props.nome_empresa + ' - ' : '' }}{{ props.cidade }} ({{ computedModalidade }})</p>
             <p class="mt-2 text-sm text-gray-600">{{ truncate(props.descricao, 50) }}</p>
