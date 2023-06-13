@@ -18,15 +18,16 @@ const props = defineProps({
                         HOME
                         </Link>
                     </div>
-                    <!-- Navigation Links -->
                     <div class="flex items-center">
-                        <Link :href="route('empresa.list.vagas')" class="px-2">Vagas abertas</Link>
+                        <!-- Navigation Links -->
+                        <Link :href="route('empresa.list.vagas')" class="px-2 w-36 text-center">Vagas abertas</Link>
+                        <Link :href="route('empresa.create.vaga.form')" class="px-2 w-36 text-center">Adicionar vagas</Link>
                     </div>
                 </div>
                 <!-- Botões da direita -->
                 <div class="flex items-center mr-8">
                     <div>
-                        <Link href="/empresa/profile">
+                        <Link :href="route('empresa.profile')">
                             <div v-if="props.profile_image" class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                                 <img :src="props.profile_image" alt="profile image">
                             </div>
