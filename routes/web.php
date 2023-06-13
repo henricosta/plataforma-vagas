@@ -63,6 +63,8 @@ Route::group([
 
 Route::middleware('auth:web')->group(function () {
     Route::post('/profile/competencia', [ProfileController::class, 'addCompetencia'])->name('competencia.create');
+    Route::post('/profile/formacao', [ProfileController::class, 'addFormacao'])->name('formacao.create');
+
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
