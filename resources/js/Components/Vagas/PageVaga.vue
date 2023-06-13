@@ -43,7 +43,7 @@ function candidatar() {
 
 <template>
     <div>
-        <div class="bg-white shadow-sm mx-6 my-3 border rounded-lg">
+        <div class="bg-white shadow-sm mx-6 border rounded-lg">
             <div class="m-14">
                 <h2 class="text-3xl mb-2">{{ props.vaga.titulo }}</h2>
                 <p class="text-gray-800">{{ props.vaga.empresa.nome_empresa }} - {{ props.vaga.nome_cidade }} ({{ modalidade
