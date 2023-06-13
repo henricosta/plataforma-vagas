@@ -15,7 +15,7 @@ function truncate(str, maximum_length) {
 
 <template>
     <Link :href="route('get.user', props.user.id)">
-        <div class="flex items-center w-96 mb-3 border rounded-md shadow-sm p-4 cursor-pointer hover:bg-gray-50">
+        <div class="flex items-center w-96 h-24 mb-3 border rounded-md shadow-sm p-4 cursor-pointer hover:bg-gray-50">
             <div>
                 <div v-if="props.user.profile_image" class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                     <img :src="props.user.profile_image" alt="profile image">
