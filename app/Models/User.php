@@ -68,4 +68,8 @@ class User extends Authenticatable
     public function vagas() {
         return $this->belongsToMany(Vaga::class, 'candidaturas');
     }
+
+    public function formacoes() {
+        return $this->hasMany(Formacao::class);
+    }
 }
