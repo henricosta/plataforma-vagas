@@ -77,7 +77,7 @@ class VagaController extends Controller
         $empresaId = Auth::user()->getAuthIdentifier();
         $vagas = Vaga::with('candidatos', 'cidade')->where('empresa_id', '=', $empresaId)->get();
 
-        return Inertia::render('Empresa/ListVagas', [
+        return Inertia::render('Empresa/ListEmpresaVagas', [
             'vagas' => $vagas
         ]);
     }
