@@ -1,15 +1,19 @@
 <script setup>
 import {Head, useForm, usePage} from '@inertiajs/vue3';
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { Link } from '@inertiajs/vue3';
 import UserLayout from "@/Layouts/UserLayout.vue";
 import Section from '@/Components/Section.vue';
 import SmallVagaCard from '@/Components/SmallVagaCard.vue'
 import RightColumn from '@/Components/RightColumn.vue';
+import FormacaoItem from '@/Components/FormacaoItem.vue'
+import Modal from '@/Components/Modal.vue';
+import InputLabel from '@/Components/InputLabel.vue';
 
-const props = defineProps({
+const props = defineProps({ 
+    vagas: Array,
     competencias: Array,
-    vagas: Array
+    formacoes: Array
 })
 
 const user = usePage().props.auth.user
@@ -17,32 +21,30 @@ const user = usePage().props.auth.user
 const competenciaForm = useForm({
     competencia: ''
 })
+const formacaoForm = useForm({
+    instituicao: '',
+    diploma: '',
+    area: '',
+    inicio: '',
+    termino: '',
+    descricao: ''
+})
+
+
+const competenciaModal = ref(false)
+const formacaoModal = ref(false)
 
 const submitCompetencia = () => {
+    competenciaModal.value = false
     competenciaForm.post(route('competencia.create'));
 };
-
-const isModalOpen = ref(false)
-
-function openModal() {
-    isModalOpen.value = true
+const submitFormacao = () => {
+    formacaoModal.value = false
+    formacaoForm.post(route('formacao.create'));
 }
-
-function closeModal(){
-    isModalOpen.value = false
-}
-
-function closeModalOutside(event) {
-    if (event.target == document.getElementById('modal-adicionar-competencia')) {
-        closeModal()
-    }
-}
-
 </script>
 
 <template>
-    <Head title="Profile" />
-
     <UserLayout>
         <div class="py-12">
             <div class="flex justify-around">
@@ -71,7 +73,7 @@ function closeModalOutside(event) {
                     <Section>
                         <div>
                             <h4 class="inline-block mb-2 text-lg font-semibold text-gray-900 dark:text-white">Competências</h4>
-                            <button @click="openModal" id="adicionar-competencia" type="button" class="ml-3 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Adicionar competência</button>
+                            <button @click="() => competenciaModal = true" id="adicionar-competencia" type="button" class="ml-3 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Adicionar competência</button>
                         </div>
                         <div>
                             <ul v-if="props.competencias.length > 0" class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
@@ -81,45 +83,84 @@ function closeModalOutside(event) {
                         </div>
                     </Section>
                     <Section>
+                        <div>
+                            <h4 class="inline-block mb-2 text-lg font-semibold text-gray-900 dark:text-white">Formações</h4>
+                            <button @click="() => formacaoModal = true" id="adicionar-formacao" type="button" class="ml-3 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Adicionar formação</button>
+                        </div>
+                        <div>
+                            <div v-if="props.formacoes.length > 0">
+                                <FormacaoItem v-for="f in props.formacoes" :formacao="f" />
+                            </div>
+                            <div v-else class="text-gray-500">Você ainda não adicionou nenhuma formação.</div>
+                        </div>
+                    </Section>
+                    <Section>
                         <Link :href="route('logout')" method="post" as="button">
                             <button class="bg-gray-800 rounded-md text-white px-3 py-2">Logout</button>
                         </Link>
-                    </Section>
+                    </Section> 
                 </div>
-                <!-- Lista de vagas -->
-                <RightColumn class="mr-8">
-                    <div>
-                        <h1 class="text-2xl">Minhas vagas</h1>
-                        <hr class="mt-2 mb-3">
-                        <SmallVagaCard v-if="props.vagas.length > 0" v-for="vaga in vagas"
-                            :id="vaga.id"
-                            :titulo="vaga.titulo"
-                            :descricao="vaga.descricao"
-                            :nome_empresa="vaga.empresa.nome_empresa"
-                            :cidade="vaga.cidade.nome"
-                            :modalidade="vaga.modalidade"
-                        />
-                    </div>
-                </RightColumn>
+                
+                <div>
+                    <RightColumn class="mr-8">
+                        <div class="max-h-screen overflow-auto">
+                            <h1 class="text-2xl">Minhas vagas</h1>
+                            <hr class="mt-2 mb-3">
+                            <SmallVagaCard v-if="props.vagas.length > 0" v-for="vaga in vagas"
+                                :id="vaga.id"
+                                :titulo="vaga.titulo"
+                                :descricao="vaga.descricao"
+                                :nome_empresa="vaga.empresa.nome_empresa"
+                                :cidade="vaga.cidade.nome"
+                                :modalidade="vaga.modalidade"
+                            />
+                        </div>
+                    </RightColumn>
+                </div>
             </div>
         </div>
     </UserLayout>
-    <div v-show="isModalOpen" @click="closeModalOutside">
-        <div id="modal-adicionar-competencia" class="flex justify-center items-center fixed z-10 left-0 top-0 w-full h-full bg-gray-900 bg-opacity-50">
-            <div id="modal-adicionar-competencia-content" class="bg-white w-96 inline-block align-middle rounded-2xl shadow-2xl">
-                <form class="p-4" @submit.prevent="submitCompetencia">
-                    <div class="flex justify-end">
-                        <button @click="closeModal" class="block text-red-600">Fechar</button>
-                    </div>
-                    <label for="competencia-input" class="text-gray-500">Nova Competência</label>
-                    <input id="competencia-input" type="text" class="w-full border rounded-lg" placeholder="Ex: Excel" v-model="competenciaForm.competencia">
-                    <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Adicionar competência
-                    </button>
-                </form>
+    <Modal :show="formacaoModal">
+        <form class="p-4" @submit.prevent="submitFormacao" method="POST">
+            <div class="flex justify-between items-center mb-3">
+                <p class="text-lg"><strong>Nova formação</strong></p>
+                <button type="button" @click="() => formacaoModal = false" class="shadow-md rounded-md px-3 py-1 text-white bg-red-600">Fechar</button>
             </div>
-        </div>
-    </div>
+            <InputLabel value="Instituição de ensino"/>
+            <input type="text" class="w-full border rounded-md" placeholder="Ex: Universidade federal do rio de janeiro" v-model="formacaoForm.instituicao">
+            
+            <InputLabel value="Diploma" class="mt-2"/>
+            <input type="text" class="w-full border rounded-md" placeholder="Ex: Bacharelado" v-model="formacaoForm.diploma">
+
+            <InputLabel class="mt-2" value="Area"/>
+            <input type="text" class="w-full border rounded-md" placeholder="Ex: Administração" v-model="formacaoForm.area">
+
+            <InputLabel class="mt-2" value="Data de início"/>
+            <input type="date" class="w-full border rounded-md" v-model="formacaoForm.inicio">
+
+            <InputLabel class="mt-2" value="Data de término (ou previsão)"/>
+            <input type="date" class="w-full border rounded-md" v-model="formacaoForm.termino">
+
+            <InputLabel class="mt-2" value="Descrição"/>
+            <textarea type="text" class="w-full border rounded-md" placeholder="Ex: Excel" v-model="formacaoForm.descricao"></textarea>
+
+            <button type="submit" class="rounded-lg bg-gray-800 text-white mt-3 px-3 py-2">
+                Adicionar formação
+            </button>
+        </form>
+    </Modal>
+    <Modal :show="competenciaModal">
+        <form class="p-4" @submit.prevent="submitCompetencia" method="POST">
+            <div class="flex justify-between items-center mb-3">
+                <p class="text-lg"><strong>Nova competencia</strong></p>
+                <button @click="() => competenciaModal = false" type="button" class="shadow-md rounded-md px-3 py-1 text-white bg-red-600">Fechar</button>
+            </div>
+            <input id="competencia-input" type="text" class="w-full border rounded-md" placeholder="Ex: Excel" v-model="competenciaForm.competencia">
+            <button type="submit" class="rounded-lg bg-gray-800 text-white mt-3 px-3 py-2">
+                Adicionar competência
+            </button>
+        </form>
+    </Modal>
 </template>
 
 <style>
