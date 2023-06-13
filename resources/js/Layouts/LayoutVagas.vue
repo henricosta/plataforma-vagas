@@ -44,7 +44,7 @@ function handleScrolling() {
         <ListVagas :vagas="props.vagas" :update-vaga-focus="updateVagaOnFocus" :next-page-url="props.nextPageUrl"
             :previous-page-url="props.previousPageUrl" :total-pages="props.totalPages" :current-page="props.currentPage"/>
         <div class="w-2/4">
-            <PageVaga id="page-vaga" :vaga="props.vagas[vagaOnFocus.vagaIndex]" :class="{
+            <PageVaga id="page-vaga" class="my-3" :vaga="props.vagas[vagaOnFocus.vagaIndex]" :class="{
                 'fixed': isFixed,
                 'bottom-0': isFixed,
                 'w-2/4': isFixed
