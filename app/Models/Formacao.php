@@ -11,6 +11,7 @@ class Formacao extends Model
 
     protected $table = 'formacao';
     protected $fillable = ['instituicao', 'diploma', 'area', 'inicio', 'termino', 'descricao'];
+    public $timestamps = false;
 
     public function user() {
         return $this->belongsTo(User::class);
