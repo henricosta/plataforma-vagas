@@ -115,7 +115,7 @@ const submitFormacao = () => {
                                 <li v-for="c in props.competencias" class="hover:bg-gray-100 flex items-center justify-between py-1 px-3 rounded-lg w-full" style="text-transform: capitalize">
                                     <p>{{ c.competencia }}</p>
                                     <Link :href="route('competencia.delete', { id: c.id })" as="button" method="delete">
-                                        <button class="border py-1 px-3 rounded-lg hover:bg-red-600 hover:text-white">Delete</button>
+                                        <button class="border py-1 px-3 rounded-lg hover:bg-red-600 hover:text-white">Deletar</button>
                                     </Link>
                                 </li>
                             </ul>

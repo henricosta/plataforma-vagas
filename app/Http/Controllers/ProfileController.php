@@ -69,9 +69,15 @@ class ProfileController extends Controller
                 'diploma' => 'required|string|max:255',
                 'area' => 'required|string|max:255',
                 'inicio' => 'required|date',
-                'termino' => 'date',
                 'descricao' => 'required|string|max:255',
             ]);
+
+            if ($request->input('termino') != 1) {
+                dd($request->input('termino'));
+                $request->validate([
+                    'termino' => 'date|string',
+                ]);
+            }
         } catch(\Exception $e) {
             dd($e);
         }
