@@ -20,7 +20,7 @@ function getPageLink(i) {
 
 <template>
     <div class="w-2/5">
-        <div class="lista bg-gray-200 shadow-inner">
+        <div class="lista bg-gray-200 shadow-inner rounded-md">
             <!-- A key desse v-for não pode ser o id da vaga, mas sim o index
                                 para a funcionalidade de selecionar vaga funcionar da forma correta.
                             -->
@@ -73,7 +73,7 @@ function getPageLink(i) {
 
 <style scoped>
 .lista {
-    max-height: 145vh;
+    max-height: 160vh;
     overflow: auto
 }
 </style>
