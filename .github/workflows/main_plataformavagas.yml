@@ -31,6 +31,17 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
+  
+      - name: Set up environment variables
+        run: |
+          php artisan key:generate
+          echo "APP_NAME=plataforma-vagas" >> .env
+          echo "APP_ENV=production" >> .env
+          echo "DB_CONNECTION=sqlite" >> .env
+
+      - name: Run database migrations
+        run: php artisan migrate --force
+
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
