@@ -20,7 +20,7 @@ function getPageLink(i) {
 
 <template>
     <div class="w-2/5">
-        <div class="lista">
+        <div class="lista bg-gray-200 shadow-inner">
             <!-- A key desse v-for não pode ser o id da vaga, mas sim o index
                                 para a funcionalidade de selecionar vaga funcionar da forma correta.
                             -->
