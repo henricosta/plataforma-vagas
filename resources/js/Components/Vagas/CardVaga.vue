@@ -18,7 +18,7 @@ function truncate(str, maximum_length) {
 </script>
 
 <template>
-    <div class="bg-white block w-full max-w-lg p-8 border shadow-sm h-full rounded-lg my-3 mx-5">
+    <div class="bg-white block p-8 border shadow-sm h-full rounded-lg my-3 mx-5">
         <h5 class="mb-1 text-xl text-gray-900"><strong>{{ truncate(props.titulo, 50) }}</strong></h5>
         <p class="text-gray-800">{{ truncate(props.nome_empresa, 30) }}</p>
         <p class="mb-1 text-gray-600 text-sm">{{ props.cidade }} ({{ props.modalidade==1 ? 'Presencial' : props.modalidade==2 ? 'Híbrido' : 'Remoto' }})</p>
