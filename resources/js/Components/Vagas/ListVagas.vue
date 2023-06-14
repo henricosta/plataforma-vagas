@@ -73,7 +73,7 @@ function getPageLink(i) {
 
 <style scoped>
 .lista {
-    max-height: 160vh;
+    max-height: 159vh;
     overflow: auto
 }
 </style>
