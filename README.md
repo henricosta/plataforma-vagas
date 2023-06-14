@@ -24,7 +24,7 @@ O projeto conta com as seguintes funcionalidades principais:
 ### Instalação
 Para executar o projeto localmente, siga as instruções abaixo:
 
-1. Certifique-se de ter o PHP e o Composer instalados em seu sistema.
+1. Certifique-se de ter o PHP, Composer e Node instalados em seu sistema.
 
 2. Clone este repositório em seu ambiente de desenvolvimento local.
 
@@ -50,4 +50,12 @@ php artisan db:seed
 ```
 php artisan serve
 ```
-9. Abra o navegador e acesse http://localhost:8000 para visualizar a página principal.
+9. Instale as dependencias do Node.
+```
+npm install
+```
+10. Inicie o Vite
+```
+npm run dev
+```
+12. Abra o navegador e acesse http://localhost:8000 para visualizar a página principal.
