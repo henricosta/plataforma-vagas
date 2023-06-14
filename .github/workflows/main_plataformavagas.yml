@@ -41,7 +41,6 @@ jobs:
 
       - name: Run database migrations
         run: php artisan migrate --force
-        echo "MIGRATION_STATUS=$(php artisan migrate:status --no-ansi)" >> $GITHUB_ENV
 
       - name: Install Node.js
         uses: actions/setup-node@v2
