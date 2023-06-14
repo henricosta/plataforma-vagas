@@ -22,11 +22,11 @@ function updateVagaOnFocus(index) {
 </script>
 
 <template>
-    <div v-if="props.vagas.length" class="flex justify-center">
+    <div v-if="props.vagas.length" class="flex justify-center my-6">
         <ListVagas :vagas="props.vagas" :update-vaga-focus="updateVagaOnFocus" :next-page-url="props.nextPageUrl"
             :previous-page-url="props.previousPageUrl" :total-pages="props.totalPages" :current-page="props.currentPage"/>
         <div class="w-2/4">
-            <PageVaga id="page-vaga" class="my-3" :vaga="props.vagas[vagaOnFocus.vagaIndex]"/>
+            <PageVaga id="page-vaga" :vaga="props.vagas[vagaOnFocus.vagaIndex]"/>
         </div>
     </div>
     <div v-else class="flex justify-center mt-12">
@@ -37,7 +37,4 @@ function updateVagaOnFocus(index) {
 </template>
 
 <style scoped>
-.follow-scroll {
-
-}
 </style>
