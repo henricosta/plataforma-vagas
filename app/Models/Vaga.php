@@ -39,9 +39,8 @@ class Vaga extends Model
         $vagas = Vaga::modalidade($modalidade)
             ->data($data)
             ->titulo($busca)
-            ->estadoCidade($estado, $cidadeId)
             ->with('empresa')
-            ->select('vagas.*', 'cidades.nome as nome_cidade')
+            ->select('vagas.*')
             ->paginate(perPage: 10, page: $page);
 
         return $vagas;
