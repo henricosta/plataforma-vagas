@@ -10,7 +10,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 - Laravel: Framework PHP escolhido para a aplição.
 - Vue.js: Framework JavaScript utilizado para o desenvolvimento do frontend.
 - Inertia.js: Biblioteca JavaScript que permite criar interfaces de usuário dinâmicas utilizando componentes Vue.js no backend Laravel.
-- SQLite: Banco de dados utilizado inicialmente devido à rapidez na configuração e desenvolvimento, mas futuramente pretendo utilizar o MySQL no ambiente de produção, visando escalabilidade e melhor gerenciamento de permissões.
+- SQLite: Banco de dados
 
 ### Funcionalidades
 O projeto conta com as seguintes funcionalidades principais:
